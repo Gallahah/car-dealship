@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Montserrat:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root,
+.app {
+    height: 100%;
+    width: 100%;
+    font-family: 'Lora', serif;
+    @apply text-black;
+    background-color: #9BBBE5;
+}
+
+/*.cars {*/
+/*    display: grid;*/
+/*    width: 500px;*/
+/*    margin: 0 auto;*/
+/*    grid-gap: 10px;*/
+/*    grid-template-columns: repeat(3, 1fr);*/
+/*}*/
+
+/*.cars h2 {*/
+/*    display: block;*/
+/*    height: 120px;*/
+/*    border: 1px solid black;*/
+/*    border-radius: 10px;*/
+/*    text-align: center;*/
+/*}*/
