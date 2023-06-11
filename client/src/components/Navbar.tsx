@@ -3,17 +3,18 @@ import useMediaQuery from "@/utils/useMediaQuery";
 import Logo from "@/assets/logo.png";
 import CustomLink from "@/components/CustomLink";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import {XMarkIcon} from "@heroicons/react/20/solid";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 interface Props {
-    isTopOfPage: boolean;
+    isTopOfPage: boolean; // check if the scroll position is at the top of the page
 }
 
 const Navbar = ({ isTopOfPage }: Props) => {
     const flexBetween = "flex items-center justify-between";
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-    const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow";
+    // check to determine navbar design depending on the scroll position
+    const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
 
     return <nav>
         <div className={`${flexBetween} ${navbarBackground} drop-shadow bg-dark-100 fixed top-0 z-30 w-full py-6`}>
@@ -25,16 +26,19 @@ const Navbar = ({ isTopOfPage }: Props) => {
                     </CustomLink>
 
                     {/* Right Side */}
+                    {/* Check for the resolution to determine which menu to display */}
                     {isAboveMediumScreens ? (
                         <div className={`${flexBetween}`}>
                             <div
                                 className={`${flexBetween} gap-10 text-md font-semibold`}>
+                                {/* LINKS */}
                                 <CustomLink to="/">Home</CustomLink>
                                 <CustomLink to="/buy">Buy</CustomLink>
                                 <CustomLink to="/sell">Sell</CustomLink>
                             </div>
                         </div>
                     ) : (
+                        // Mobile menu toggle
                         <button className="rounded-t-full rounded-l-full bg-light-100 p-2"
                                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                         >
@@ -55,7 +59,7 @@ const Navbar = ({ isTopOfPage }: Props) => {
                     </button>
                 </div>
 
-                {/* ITEMS */}
+                {/* ITEMS/LINKS */}
                 <div className="ml-[33%] flex flex-col gap-10 text-3xl">
                     <CustomLink to="/">Home</CustomLink>
                     <CustomLink to="/buy">Buy</CustomLink>

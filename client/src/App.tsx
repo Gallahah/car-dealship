@@ -10,6 +10,7 @@ import Car from "@/pages/Car";
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
 
+    // Check scroll position
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY === 0) {

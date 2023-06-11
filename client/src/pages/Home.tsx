@@ -6,7 +6,7 @@ import Image4 from "@/assets/image4.jpg";
 import CustomLink from "@/components/CustomLink";
 
 const Home = () => {
-
+    // Home page UI
     return <section id="home" className="gap-16 bg-primary-100 py-10 md:h-full md:pb-0">
         <div className="md:flex mx-auto w-5/6 items-center justify-center md:h-5/6">
             <div className="z-10 mt-32">
@@ -21,6 +21,7 @@ const Home = () => {
                             }}
                 >
                     <div className="relative">
+                        {/* Home page main graphic */}
                         <img
                             alt="home page image" src={Image1}
                             className="drop-shadow rounded-b-full rounded-r-full transition duration-500 hover:rounded-none"

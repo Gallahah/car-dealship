@@ -9,6 +9,7 @@ const Sell = () => {
     const [year, setYear] = useState<number>(2000);
     const [price, setPrice] = useState<number>(0);
 
+    // Fetching the data/columns needed to create a new row in the table
     const createCar = async (type: string, make: string, model: string, year: number, price: number) => {
         const response = await fetch(`http://localhost:3001/car`, {
             method: "POST",
@@ -26,6 +27,7 @@ const Sell = () => {
         return response.json();
     }
 
+    // Handling the creation of a new row in the cars table in the frontend
     const handleCreateCar = async (e: React.FormEvent) => {
         e.preventDefault();
         const car = await createCar(type, make, model, year, price);

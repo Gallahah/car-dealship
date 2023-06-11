@@ -24,17 +24,8 @@ export class CarModel {
             [carData.type, carData.make, carData.model, carData.year, carData.price]);
     }
 
-    async updateCar(id: number, CarData: any): Promise<boolean> {
-        const updateCarDataArray = Object.entries(CarData);
-        let setStatement = "";
-        let preparedStatementData = [];
-        for (let i = 0; i < updateCarDataArray.length; i++) {
-            setStatement += `${updateCarDataArray[i][0]} = ?`;
-            setStatement += (i + 1 !== updateCarDataArray.length) ? ", " : " ";
-            preparedStatementData.push(updateCarDataArray[i][1]);
-        }
-        preparedStatementData.push(id);
-        await this.conn.execute(`UPDATE Cars SET ${setStatement} WHERE id = ?`, preparedStatementData);
+    async updateCarPrice(id: number, price: number): Promise<boolean> {
+        await this.conn.execute("UPDATE Cars SET price = ? WHERE id = ?", [price, id]);
         return true;
     }
 

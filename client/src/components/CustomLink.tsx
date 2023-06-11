@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
 
-
+// Routing, determine which part of the UI changes and only load the changes; do not reload the unchanged parts
 interface Props {
     to: string;
     children: React.ReactNode;

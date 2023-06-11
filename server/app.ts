@@ -1,4 +1,4 @@
-import express, {Application, json} from 'express';
+import express, { Application, json } from 'express';
 import { carRouter } from "./routes/car.router";
 import cors from "cors";
 

@@ -24,11 +24,10 @@ const createCar = async (req: Request, res: Response) => {
 
 const updateCar = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const carData = req.body;
-    await carModel.updateCar(parseInt(id), carData);
-    res.send({ id, carData });
+    const { price } = req.body;
+    await carModel.updateCarPrice(parseInt(id), parseInt(price));
+    res.send({ id, price });
 }
-
 
 const deleteCar = async (req: Request, res: Response) => {
     const { id } = req.params;

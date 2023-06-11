@@ -12,6 +12,7 @@ type TCar = {
 const Buy = () => {
     const [cars, setCars] = useState<TCar>([]);
 
+    // Fetch the car data from the database
     useEffect(() => {
         (async () => {
             const response = await fetch(`http://localhost:3001/cars`);
@@ -20,6 +21,7 @@ const Buy = () => {
         })();
     }, []);
 
+    // Creating a grid for the separate cars to be displayed and mapping the objects to the page ids
     return <section
         id="buy"
         className="gap-16 bg-primary-100 py-10 md:h-full md:pb-0 mt-10"
