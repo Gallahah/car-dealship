@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import defaultImg from "@/assets/default_image.jpg";
 import React, { useEffect, useState } from "react";
+import CustomLink from "@/components/CustomLink.tsx";
 
 export type TCar = {
     id: number;
@@ -54,13 +55,12 @@ const Car = () => {
             body: JSON.stringify({ price: price + 100 }),
         });
 
-        // const updateCarPrice = await response.json();
         setPrice(prevPrice => prevPrice + 100);
     }
 
 
     // Car component UI
-return <section id="car" className="gap-16 bg-primary-100 py-10 md:h-full md:pb-0">
+return <section id="car" className="gap-16 py-10 md:h-full md:pb-0">
     <div className="grid grid-col-3">
         {/* DISPLAY INFO FROM TABLE */}
         <div className="md:flex mx-auto w-5/6 items-center justify-center md:h-5/6 mt-16">
@@ -84,11 +84,11 @@ return <section id="car" className="gap-16 bg-primary-100 py-10 md:h-full md:pb-
         </div>
     </div>
     {/* DELETE CAR BUTTON */}
-    <button
+    <CustomLink to={"/buy"}
         onClick={() => handleDeleteCar(car.id)}
         className={`font-semibold transition duration-500 hover:drop-shadow hover:bg-light-100 hover:text-white flex justify-center items-center py-6 border border-dark-100 rounded-full bg-light-200 w-2/6 mx-auto mt-10`}>
         Remove Offer
-    </button>
+    </CustomLink>
 </section>
 };
 

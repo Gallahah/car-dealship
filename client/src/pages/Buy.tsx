@@ -24,10 +24,10 @@ const Buy = () => {
     // Creating a grid for the separate cars to be displayed and mapping the objects to the page ids
     return <section
         id="buy"
-        className="gap-16 bg-primary-100 py-10 md:h-full md:pb-0 mt-10"
+        className="gap-16 py-10 md:h-full md:pb-0 mt-10"
     >
         <div className="py-6 flex">
-                    <div className="cars w-full mx-auto py-6 grid grid-cols-3 gap-8 flex justify-center items-center">
+                    <div className="cars w-full mx-auto py-6 grid grid-cols-3 gap-8 justify-center items-center">
                         {
                             cars.map((car: any) => (
                                 <CustomLink

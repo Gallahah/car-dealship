@@ -6,6 +6,7 @@ import Home from "@/pages/Home";
 import Buy from "@/pages/Buy";
 import Sell from "@/pages/Sell";
 import Car from "@/pages/Car";
+import NotFound from "@/pages/NotFound.tsx";
 
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/buy" element={<Buy />} />
                     <Route path="/sell" element={<Sell />} />
                     <Route path="/car/:id" element={<Car />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
             <Footer />

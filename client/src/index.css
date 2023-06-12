@@ -10,9 +10,10 @@ body,
 .app {
     height: 100%;
     width: 100%;
-    font-family: 'Lora', serif;
-    @apply text-black;
-    background-color: #9BBBE5;
+    font-family: 'Montserrat', sans-serif;
+    @apply text-white;
+    --tw-bg-opacity: 1;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
 /*.cars {*/

@@ -6,7 +6,7 @@ export class CarModel {
     }
 
     async getAllCars() {
-        const [rows] = await this.conn.query("SELECT * FROM cars");
+        const [rows] = await this.conn.query("SELECT * FROM cars ORDER BY id DESC");
         return rows;
     }
 

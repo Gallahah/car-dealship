@@ -14,35 +14,42 @@ const Navbar = ({ isTopOfPage }: Props) => {
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     // check to determine navbar design depending on the scroll position
-    const navbarBackground = isTopOfPage ? "" : "bg-primary-100 drop-shadow"
+    const navbarBackground = isTopOfPage ? "" : "drop-shadow shadow";
+    const links = "transition duration-500 hover:text-purple-800";
 
     return <nav>
-        <div className={`${flexBetween} ${navbarBackground} drop-shadow bg-dark-100 fixed top-0 z-30 w-full py-6`}>
+        <div className={`${flexBetween} ${navbarBackground} bg-gray-900 fixed top-0 z-30 w-full py-6`}>
             <div className={`${flexBetween} mx-auto w-5/6`}>
                 <div className={`${flexBetween} gap-16 w-full`}>
                     {/* Left Side */}
                     <CustomLink to={"/"}>
-                        <img alt="logo" src={Logo} className="transition duration-500 hover:-translate-y-1" />
+                        <img alt="logo" src={Logo} className="transition duration-500 hover:-translate-y-1 w-2/6" />
                     </CustomLink>
 
                     {/* Right Side */}
                     {/* Check for the resolution to determine which menu to display */}
                     {isAboveMediumScreens ? (
-                        <div className={`${flexBetween}`}>
+                        <div className={`${flexBetween} gap-16 text-white w-full`}>
                             <div
-                                className={`${flexBetween} gap-10 text-md font-semibold`}>
+                                className={`${flexBetween} gap-8 text-md font-semibold mx-auto`}>
                                 {/* LINKS */}
-                                <CustomLink to="/">Home</CustomLink>
-                                <CustomLink to="/buy">Buy</CustomLink>
-                                <CustomLink to="/sell">Sell</CustomLink>
+                                <CustomLink to="/buy" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Buy</CustomLink>
+                                <CustomLink to="/" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Home</CustomLink>
+                                <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Sell</CustomLink>
+                            </div>
+                            <div
+                                className={`${flexBetween} gap-4 font-semibold`}
+                            >
+                                <CustomLink to="/" className={links}>Sign In</CustomLink>
+                                <CustomLink to="/" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
                             </div>
                         </div>
                     ) : (
                         // Mobile menu toggle
-                        <button className="rounded-t-full rounded-l-full bg-light-100 p-2"
+                        <button className="rounded-t-full rounded-l-full bg-white p-2"
                                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                         >
-                            <Bars3Icon className="h-6 w-6 text-white" />
+                            <Bars3Icon className="h-6 w-6 text-purple-600" />
                         </button>
                     )}
                 </div>
@@ -51,7 +58,7 @@ const Navbar = ({ isTopOfPage }: Props) => {
 
         {/* MOBILE MENU */}
         {!isAboveMediumScreens && isMenuToggled && (
-            <div className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-light-100 drop-shadow-xl">
+            <div className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-gray-800 drop-shadow-xl text-white font-semibold border-l-2 border-purple-900">
                 {/* CLOSE ICON */}
                 <div className="flex justify-end p-12">
                     <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
@@ -60,10 +67,12 @@ const Navbar = ({ isTopOfPage }: Props) => {
                 </div>
 
                 {/* ITEMS/LINKS */}
-                <div className="ml-[33%] flex flex-col gap-10 text-3xl">
-                    <CustomLink to="/">Home</CustomLink>
-                    <CustomLink to="/buy">Buy</CustomLink>
-                    <CustomLink to="/sell">Sell</CustomLink>
+                <div className="ml-[33%] flex flex-col gap-10 text-3xl mt-14 underline underline-offset-4 underline-black decoration-purple-900 decoration-2 decoration-dashed">
+                    <CustomLink to="/" className={links}>Home</CustomLink>
+                    <CustomLink to="/buy" className={links}>Buy</CustomLink>
+                    <CustomLink to="/sell" className={links}>Sell</CustomLink>
+                    <CustomLink to="/" className={`${links} font-lora font-medium`}>Sign In</CustomLink>
+                    <CustomLink to="/" className={`${links} font-lora font-medium`}>Sign Up</CustomLink>
                 </div>
             </div>
         )}

@@ -12,12 +12,14 @@ const CustomLink = ({ to, children, ...props }: Props) => {
     const isActive = useMatch({ path: resolvedPath.pathname, end: true });
     return (
         <div
-            className={`${isActive ? 'active' : ""} transition duration-500 hover:text-light-200`}>
+            className={`${isActive ? 'active' : ""}`}>
             <Link to={to} {...props}>
                 {children}
             </Link>
         </div>
     )
 }
+
+[]
 
 export default CustomLink;

@@ -3,17 +3,14 @@ import CustomLink from "@/components/CustomLink";
 
 const Footer = () => {
     return (
-        <footer className="bg-primary-100 py-16 mt-20">
+        <footer className="py-16 mt-20 bg-gray-800">
             <div className="justify-content mx-auto w-5/6 gap-16 md:flex">
                 <div className="mt-16 basis-1/2 md:mt-0">
-                    <CustomLink to="/"><img alt="logo" src={Logo} /></CustomLink>
+                    <CustomLink to="/"><img alt="logo" src={Logo} className="w-1/5"/></CustomLink>
                     <div className="my-5">
-                        <h2>Курсова Задача ПИП</h2>
-                        <h4>Николай Димитров, 12220125</h4>
-                        <h4>Антонио Атанасов, 12220107</h4>
-                        <h4>Милана Боева, 12220121</h4>
+                        <h4 className="font-semibold">Nikolay Dimitrov</h4>
                     </div>
-                    <p>NAM© Car Dealeship Site</p>
+                    <p>NAM© Car Dealership Site</p>
                 </div>
                 <div className="mt-16 basis-1/4 md:mt-0">
                     <h4 className="font-bold">Links</h4>
