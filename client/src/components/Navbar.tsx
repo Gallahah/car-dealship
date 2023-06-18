@@ -31,11 +31,11 @@ const Navbar = ({ isTopOfPage }: Props) => {
                     {isAboveMediumScreens ? (
                         <div className={`${flexBetween} gap-16 text-white w-full`}>
                             <div
-                                className={`${flexBetween} gap-8 text-md font-semibold mx-auto`}>
+                                className={`${flexBetween} gap-8 text-lg font-semibold mx-auto`}>
                                 {/* LINKS */}
-                                <CustomLink to="/buy" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Buy</CustomLink>
-                                <CustomLink to="/" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-xl px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Home</CustomLink>
-                                <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-white border border-purple-900 hover:bg-purple-900 focus:ring-4 focus:outline-none focus:ring-purple-600 font-semibold rounded-lg text-md px-5 py-2.5 text-center mr-2 mb-2 dark:border-purple-600 dark:text-purple-800 dark:hover:text-white dark:hover:bg-purple-700 dark:focus:ring-purple-700`}>Sell</CustomLink>
+                                <CustomLink to="/buy" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Buy</CustomLink>
+                                <CustomLink to="/" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Home</CustomLink>
+                                <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Sell</CustomLink>
                             </div>
                             <div
                                 className={`${flexBetween} gap-4 font-semibold`}
