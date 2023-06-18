@@ -65,17 +65,18 @@ return <section id="car" className="gap-16 py-10 md:h-full md:pb-0">
         {/* DISPLAY INFO FROM TABLE */}
         <div className="md:flex mx-auto w-5/6 items-center justify-center md:h-5/6 mt-16">
             {/* Placeholder image for all cars */}
-            <img src={defaultImg} alt="default-image"/>
+            <img src={defaultImg} alt="default-image" className="border-4 border-gray-700 rounded-t-full shadow-md shadow-purple-950"/>
+
         </div>
         <div className="grid md:grid-cols-4 py-6 gap-8">
-            <div className={`${infoStyling} border-2 border-red-800 border-r-4 border-b-4 border-r-gray-700 border-b-gray-700 rounded-tl-xl drop-shadow-lg`}>Make: {car.make}</div>
-            <div className={`${infoStyling} border-2 border-red-800 border-r-4 border-b-4 border-r-gray-700 border-b-gray-700 drop-shadow-lg`}>Model: {car.model}</div>
-            <div className={`${infoStyling} border-2 border-red-800 border-l-4 border-b-4 border-l-gray-700 border-b-gray-700 drop-shadow-lg`}>Year: {car.year}</div>
-            <div className={`${infoStyling} border-2 border-red-800 border-l-4 border-b-4 border-l-gray-700 border-b-gray-700 rounded-tr-xl drop-shadow-lg`}>Type: {car.type}</div>
+            <div className={`${infoStyling} border-2 border-purple-800 border-r-4 border-b-4 border-r-gray-700 border-b-gray-700 rounded-tl-xl drop-shadow-lg`}>Make: {car.make}</div>
+            <div className={`${infoStyling} border-2 border-purple-800 border-r-4 border-b-4 border-r-gray-700 border-b-gray-700 drop-shadow-lg`}>Model: {car.model}</div>
+            <div className={`${infoStyling} border-2 border-purple-800 border-l-4 border-b-4 border-l-gray-700 border-b-gray-700 drop-shadow-lg`}>Year: {car.year}</div>
+            <div className={`${infoStyling} border-2 border-purple-800 border-l-4 border-b-4 border-l-gray-700 border-b-gray-700 rounded-tr-xl drop-shadow-lg`}>Type: {car.type}</div>
         </div>
          {/* UPDATE PRICE BUTTON */}
-        <div className={`${infoStyling} mb-10 mx-auto w-1/3 border-4 border-b-red-900 border-red-800 rounded-t-2xl text-lg bg-gradient-to-r from-red-800 to-gray-800`}>
-            Price: <h2 className="text-red-500 drop-shadow py-3 font-semibold ml-1 text-xl">${price}</h2>
+        <div className={`${infoStyling} mb-10 mx-auto w-1/3 border-4 border-b-purple-900 border-purple-800 rounded-t-2xl text-lg bg-gradient-to-tl from-purple-900 to-gray-800`}>
+            Price: <h2 className="text-purple-500 drop-shadow py-3 font-semibold ml-1 text-xl">${price}</h2>
         </div>
         <div>
                 <button

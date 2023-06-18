@@ -34,7 +34,7 @@ const Navbar = ({ isTopOfPage }: Props) => {
                                 className={`${flexBetween} gap-8 text-lg font-semibold mx-auto`}>
                                 {/* LINKS */}
                                 <CustomLink to="/buy" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Buy</CustomLink>
-                                <CustomLink to="/" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Home</CustomLink>
+                                <CustomLink to="/home" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Home</CustomLink>
                                 <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Sell</CustomLink>
                             </div>
                             <div

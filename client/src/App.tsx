@@ -28,6 +28,7 @@ function App() {
             <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/buy" element={<Buy />} />
                     <Route path="/sell" element={<Sell />} />
                     <Route path="/car/:id" element={<Car />} />
