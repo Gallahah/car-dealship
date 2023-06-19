@@ -40,8 +40,8 @@ const Navbar = ({ isTopOfPage }: Props) => {
                             <div
                                 className={`${flexBetween} gap-4 font-semibold`}
                             >
-                                <CustomLink to="/" className={links}>Sign In</CustomLink>
-                                <CustomLink to="/" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
+                                <CustomLink to="/login" className={links}>Login</CustomLink>
+                                <CustomLink to="/signup" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
                             </div>
                         </div>
                     ) : (
