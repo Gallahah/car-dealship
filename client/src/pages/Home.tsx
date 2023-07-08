@@ -75,7 +75,7 @@ const Home = () => {
                             visible: {opacity: 1, x: 0},
                         }}
                         className="md:w-2/5 mx-auto relative">
-                        <CustomLink to="/">
+                        <CustomLink to="/signup">
                             <div className="transition duration-500 hover:scale-110 hover:shadow-gray-950">
                         <img className="shadow-xl opacity-60 rounded-md transition duration-700 hover:opacity-90" alt="image" src={Image3}/>
                         <h3 className="opacity-20 transition duration-400 hover:opacity-80 hover:text-purple-400 absolute text-5xl font-semibold text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">Sign Up</h3>

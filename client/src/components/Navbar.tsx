@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMediaQuery from "@/utils/useMediaQuery";
 import Logo from "@/assets/logo.png";
 import CustomLink from "@/components/CustomLink";
@@ -7,15 +7,31 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 
 interface Props {
     isTopOfPage: boolean; // check if the scroll position is at the top of the page
+    firstName: string;  // receive the first name as a prop
 }
 
-const Navbar = ({ isTopOfPage }: Props) => {
+const Navbar = ({ isTopOfPage, firstName }: Props) => {
     const flexBetween = "flex items-center justify-between";
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     // check to determine navbar design depending on the scroll position
     const navbarBackground = isTopOfPage ? "" : "drop-shadow shadow";
     const links = "transition duration-500 hover:text-purple-800";
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        console.log("Retrieved token:", token);
+        setIsLoggedIn(!!token);
+
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        console.log("Token removed from localStorage");
+        setIsLoggedIn(false);
+    };
+
 
     return <nav>
         <div className={`${flexBetween} ${navbarBackground} bg-gray-900 fixed top-0 z-30 w-full py-6`}>
@@ -37,12 +53,22 @@ const Navbar = ({ isTopOfPage }: Props) => {
                                 <CustomLink to="/home" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Home</CustomLink>
                                 <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Sell</CustomLink>
                             </div>
-                            <div
-                                className={`${flexBetween} gap-4 font-semibold`}
-                            >
-                                <CustomLink to="/login" className={links}>Login</CustomLink>
-                                <CustomLink to="/signup" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
-                            </div>
+                            {isLoggedIn ? (
+                            <>
+                                <div className={`${flexBetween} gap-4 font-semibold`}>
+                                    <CustomLink to="/home" className={links}>Welcome, {firstName}</CustomLink>
+                                    <CustomLink to="/" className={links} onClick={handleLogout}>
+                                        Logout
+                                    </CustomLink>
+                                </div>
+                            </>
+                            ) : (
+                                <div
+                                    className={`${flexBetween} gap-4 font-semibold`}
+                                >
+                                    <CustomLink to="/login" className={links}>Sign In</CustomLink>
+                                    <CustomLink to="/signup" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
+                                </div>)}
                         </div>
                     ) : (
                         // Mobile menu toggle
@@ -71,8 +97,8 @@ const Navbar = ({ isTopOfPage }: Props) => {
                     <CustomLink to="/" className={links}>Home</CustomLink>
                     <CustomLink to="/buy" className={links}>Buy</CustomLink>
                     <CustomLink to="/sell" className={links}>Sell</CustomLink>
-                    <CustomLink to="/" className={`${links} font-lora font-medium`}>Sign In</CustomLink>
-                    <CustomLink to="/" className={`${links} font-lora font-medium`}>Sign Up</CustomLink>
+                    <CustomLink to="/login" className={`${links} font-lora font-medium`}>Login</CustomLink>
+                    <CustomLink to="/signup" className={`${links} font-lora font-medium`}>Sign Up</CustomLink>
                 </div>
             </div>
         )}

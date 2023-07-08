@@ -12,6 +12,7 @@ import NotFound from "@/pages/NotFound.tsx";
 
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
+    const [firstName, setFirstName] = useState("");
 
     // Check scroll position
     useEffect(() => {
@@ -25,8 +26,12 @@ function App() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // const updateFirstName = (name: string) => {
+    //     setFirstName(name);
+    // };
+
     return <div className="app bg-primary-100">
-            <Navbar isTopOfPage={isTopOfPage}/>
+            <Navbar isTopOfPage={isTopOfPage} firstName={firstName}/>
             <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -34,7 +39,7 @@ function App() {
                     <Route path="/buy" element={<Buy />} />
                     <Route path="/sell" element={<Sell />} />
                     <Route path="/car/:id" element={<Car />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login setFirstName={setFirstName}/>} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

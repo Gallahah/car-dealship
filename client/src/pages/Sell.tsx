@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { TCar } from './Car';
 
 const Sell = () => {
