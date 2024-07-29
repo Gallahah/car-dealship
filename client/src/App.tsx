@@ -30,7 +30,7 @@ function App() {
     //     setFirstName(name);
     // };
 
-    return <div className="app bg-primary-100">
+    return <div className="app bg-white">
             <Navbar isTopOfPage={isTopOfPage} firstName={firstName}/>
             <div>
                 <Routes>

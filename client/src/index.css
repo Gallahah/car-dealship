@@ -13,21 +13,5 @@ body,
     font-family: 'Montserrat', sans-serif;
     @apply text-white;
     --tw-bg-opacity: 1;
-    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+    background-color: #F5F3F4;
 }
-
-/*.cars {*/
-/*    display: grid;*/
-/*    width: 500px;*/
-/*    margin: 0 auto;*/
-/*    grid-gap: 10px;*/
-/*    grid-template-columns: repeat(3, 1fr);*/
-/*}*/
-
-/*.cars h2 {*/
-/*    display: block;*/
-/*    height: 120px;*/
-/*    border: 1px solid black;*/
-/*    border-radius: 10px;*/
-/*    text-align: center;*/
-/*}*/

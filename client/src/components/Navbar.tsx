@@ -16,7 +16,6 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     // check to determine navbar design depending on the scroll position
     const navbarBackground = isTopOfPage ? "" : "drop-shadow shadow";
-    const links = "transition duration-500 hover:text-purple-800";
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
 
 
     return <nav>
-        <div className={`${flexBetween} ${navbarBackground} bg-gray-900 fixed top-0 z-30 w-full py-6`}>
+        <div className={`${flexBetween} ${navbarBackground} bg-light-20 fixed top-0 z-30 w-full py-6`}>
             <div className={`${flexBetween} mx-auto w-5/6`}>
                 <div className={`${flexBetween} gap-16 w-full`}>
                     {/* Left Side */}
@@ -45,20 +44,20 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                     {/* Right Side */}
                     {/* Check for the resolution to determine which menu to display */}
                     {isAboveMediumScreens ? (
-                        <div className={`${flexBetween} gap-16 text-white w-full`}>
+                        <div className={`${flexBetween} text-black w-full`}>
                             <div
-                                className={`${flexBetween} gap-8 text-lg font-semibold mx-auto`}>
+                                className={`${flexBetween} gap-8 text-md font-semibold mx-auto text-black`}>
                                 {/* LINKS */}
-                                <CustomLink to="/buy" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Buy</CustomLink>
-                                <CustomLink to="/home" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Home</CustomLink>
-                                <CustomLink to="/sell" className={`${links} text-purple-900 hover:text-purple-700 font-semibold text-md text-center mr-2 mb-2`}>Sell</CustomLink>
+                                <CustomLink to="/home"><h3 className="hover:text-dark-100">Home</h3></CustomLink>
+                                <CustomLink to="/buy"><h3 className="hover:text-dark-100">Cars For Sale</h3></CustomLink>
+                                <CustomLink to="/sell"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
                             </div>
                             {isLoggedIn ? (
                             <>
                                 <div className={`${flexBetween} gap-4 font-semibold`}>
-                                    <CustomLink to="/home" className={links}>Welcome, {firstName}</CustomLink>
-                                    <CustomLink to="/" className={links} onClick={handleLogout}>
-                                        Logout
+                                    <CustomLink to="/home">Welcome, {firstName}</CustomLink>
+                                    <CustomLink to="/">
+                                        <button onClick={handleLogout}>Logout</button>
                                     </CustomLink>
                                 </div>
                             </>
@@ -66,8 +65,15 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                                 <div
                                     className={`${flexBetween} gap-4 font-semibold`}
                                 >
-                                    <CustomLink to="/login" className={links}>Sign In</CustomLink>
-                                    <CustomLink to="/signup" className={`${links} rounded-lg hover:border-purple-600 border px-4 py-2`}>Sign Up</CustomLink>
+                                    <CustomLink to="/login">
+                                        <span className="hover:text-dark-200">Sign In</span>
+                                    </CustomLink>
+                                    <CustomLink to="/signup">
+                                        <span
+                                            className={`rounded-full hover:border-dark-200 hover:text-dark-200 border-2 px-4 py-2`}>
+                                            Sign Up
+                                        </span>
+                                    </CustomLink>
                                 </div>)}
                         </div>
                     ) : (
@@ -75,7 +81,7 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                         <button className="rounded-t-full rounded-l-full bg-white p-2"
                                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                         >
-                            <Bars3Icon className="h-6 w-6 text-purple-600" />
+                            <Bars3Icon className="h-6 w-6 text-dark-200" />
                         </button>
                     )}
                 </div>
@@ -84,7 +90,7 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
 
         {/* MOBILE MENU */}
         {!isAboveMediumScreens && isMenuToggled && (
-            <div className="fixed right-0 bottom-0 z-40 h-full w-[300px] bg-gray-800 drop-shadow-xl text-white font-semibold border-l-2 border-purple-900">
+            <div className="fixed right-0 bottom-0 z-40 h-full w-full bg-gray-800 drop-shadow-xl text-white font-semibold border-l-2 border-dark-200">
                 {/* CLOSE ICON */}
                 <div className="flex justify-end p-12">
                     <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
@@ -93,12 +99,15 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                 </div>
 
                 {/* ITEMS/LINKS */}
-                <div className="ml-[33%] flex flex-col gap-10 text-3xl mt-14 underline underline-offset-4 underline-black decoration-purple-900 decoration-2 decoration-dashed">
-                    <CustomLink to="/" className={links}>Home</CustomLink>
-                    <CustomLink to="/buy" className={links}>Buy</CustomLink>
-                    <CustomLink to="/sell" className={links}>Sell</CustomLink>
-                    <CustomLink to="/login" className={`${links} font-lora font-medium`}>Login</CustomLink>
-                    <CustomLink to="/signup" className={`${links} font-lora font-medium`}>Sign Up</CustomLink>
+                <div className="ml-[33%] flex flex-col gap-10 text-3xl mt-14">
+                    <CustomLink to="/">Home</CustomLink>
+                    <CustomLink to="/buy">Buy</CustomLink>
+                    <CustomLink to="/sell">Sell</CustomLink>
+                    <div className="bg-white h-0.5 rounded-full brightness-50 w-1/6"></div>
+                    <div className="mt-2 space-y-6">
+                        <CustomLink to="/login"><span className={`font-lora font-medium`}>Login</span></CustomLink>
+                        <CustomLink to="/signup"><span className={`font-lora font-medium`}>Sign Up</span></CustomLink>
+                    </div>
                 </div>
             </div>
         )}

@@ -10,7 +10,7 @@ const Sell = () => {
     const [price, setPrice] = useState<number>();
 
     // Fetching the data/columns needed to create a new row in the table
-    const createCar = async (type: string, make: string, model: string, year: number, price: number) => {
+    const createCar = async (type: string, make: string, model: string, year: number | undefined, price: number | undefined) => {
         const response = await fetch(`http://localhost:3001/car`, {
             method: "POST",
             body: JSON.stringify({
@@ -140,6 +140,7 @@ const Sell = () => {
                         <input required
                             id="car-year" className="mx-auto placeholder-gray-700 border-gray-600 bg-gray-800 block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600"
                             value={year} placeholder="Year"
+                               pattern="\d{4}"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                 setYear(e.target.value);
                             }} />
