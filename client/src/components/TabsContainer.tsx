@@ -56,7 +56,7 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Price',
             content: (
-                <div className="flex gap-2">
+                <div className="grid md:grid-cols-5 grid-cols-2 gap-2">
                     {priceRanges.map(range => (
                         <button
                             key={range.label}
@@ -72,7 +72,7 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Make',
             content: (
-                <div className="flex gap-2">
+                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-2">
                     {makes.map(make => (
                         <button
                             key={make}
@@ -88,7 +88,7 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Type',
             content: (
-                <div className="flex gap-2">
+                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-2">
                     {types.map(type => (
                         <button
                             key={type}

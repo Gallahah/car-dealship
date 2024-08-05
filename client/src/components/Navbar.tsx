@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useMediaQuery from "@/utils/useMediaQuery";
-import Logo from "@/assets/logo.png";
+import Logo from "@/assets/logo_dark.png";
 import CustomLink from "@/components/CustomLink";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/20/solid";
@@ -38,7 +38,7 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                 <div className={`${flexBetween} gap-16 w-full`}>
                     {/* Left Side */}
                     <CustomLink to={"/"}>
-                        <img alt="logo" src={Logo} className="transition duration-500 hover:-translate-y-1 w-2/6" />
+                        <img alt="logo" src={Logo} className="transition duration-300 hover:opacity-60 w-[40%]" />
                     </CustomLink>
 
                     {/* Right Side */}
