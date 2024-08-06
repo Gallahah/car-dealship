@@ -58,16 +58,19 @@ const Sell = () => {
     return (
         <section
             id="sell"
-            className="gap-16 py-10 md:h-full md:pb-0"
+            className="gap-16 py-10 md:h-full md:pb-20 mt-8 max-md:bg-dark-100"
         >
-            <h1 className="text-2xl font-semibold flex justify-center mt-16 py-2 border-4 bg-purple-900 rounded-lg border-purple-900 w-2/5 mx-auto">List a car</h1>
-            <div className="py-16 flex justify-center items-center mx-auto">
+            <h1 className="text-2xl font-semibold flex justify-center mt-16 py-2 md:border-4 md:bg-dark-100
+             rounded-lg md:border-dark-100 w-2/5 mx-auto">
+                List a car
+            </h1>
+            <div className="py-8 md:w-2/5 max-md:w-3/5 my-8 md:flex justify-center items-center mx-auto bg-dark-100 rounded-lg">
                 <form onSubmit={handleCreateCar}>
-                    <div className="flex justify-center items-center py-6">
+                    <div className="flex justify-center items-center py-6 w-1/2 mx-auto">
                         <label htmlFor="car-type"></label>
                         <select required
                                 id="car-type"
-                                className="block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600 placeholder-gray-700 border-gray-600 bg-gray-800"
+                                className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
                                 value={type} placeholder="Type"
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setType(e.target.value);
@@ -81,11 +84,11 @@ const Sell = () => {
                         </select>
                     </div>
 
-                    <div className="gap-8 py-6">
+                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
                         <label htmlFor="car-make"></label>
                         <select required
                                 id="car-make"
-                                className="block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600 placeholder-gray-700 border-gray-600 bg-gray-800"
+                                className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
                                 value={make} placeholder="Make"
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setMake(e.target.value);
@@ -104,41 +107,42 @@ const Sell = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="gap-8 py-6">
+                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
                         <label htmlFor="car-model"></label>
                         <input required
                                id="car-model"
-                               className="placeholder-gray-700 border-gray-600 bg-gray-800 block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600"
+                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
                                value={model} placeholder="Model"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setModel(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6">
+                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
                         <label htmlFor="car-year"></label>
                         <input required
                                id="car-year"
-                               className="mx-auto placeholder-gray-700 border-gray-600 bg-gray-800 block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600"
+                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
                                value={year} placeholder="Year"
                                pattern="\d{4}"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setYear(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6">
+                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
                         <label htmlFor="car-price"></label>
                         <input required
                                id="car-price"
-                               className="placeholder-gray-700 border-gray-600 bg-gray-800 block w-full p-2.5 rounded-lg text-md border focus:border:purple-600 focus:ring-purple-600"
+                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
                                value={price} placeholder="Price"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setPrice(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6 text-black">
+                    <div className="gap-8 py-6 text-black w-2/3 mx-auto text-center">
                         <label htmlFor="car-image">Upload Image:</label>
                         <input
                             id="car-image"
+                            className="block w-full p-2.5"
                             type="file"
                             accept="image/*"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,8 +154,8 @@ const Sell = () => {
                     </div>
                     <div className="gap-8 flex justify-center items-center py-6">
                         <button
-                            className="text-lg font-semibold transition duration-200 hover:text-white
-                            hover:bg-purple-800 py-2 border border-purple-600 bg-gray-800 drop-shadow rounded-md w-4/6"
+                            className="text-lg font-semibold transition duration-200 hover:text-white border border-dark-100
+                            hover:border-dark-200 py-2 bg-dark-200 drop-shadow rounded-md w-4/6"
                         >
                             Sell Car
                         </button>

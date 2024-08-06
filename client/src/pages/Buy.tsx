@@ -56,25 +56,30 @@ const Buy = () => {
                         hidden: { opacity: 0, y: -30 },
                         visible: { opacity: 1, y: 0 },
                     }}
-                    className="cars w-full mx-auto py-6 grid grid-cols-3 gap-8 justify-center items-center"
+                    className="cars w-full py-6 px-12 grid md:grid-cols-3 gap-4"
                 >
                     {cars.map((car: TCar) => (
-                        <CustomLink
-                            to={`/car/${car.id}`}
-                            key={car.id}
-                        >
-                            <div
-                                className="mx-4 h-[180px] border-4 rounded-r-lg border-purple-700 text-gray-300
-                                font-semibold bg-gradient-to-br from-purple-700 to-gray-900 flex items-center
-                                justify-center transition duration-500 hover:scale-105 hover:text-white
-                                hover:animate-pulse hover:border-purple-800">
-                                <div className="w-7/12 bg-gray-800 bg-opacity-50 px-2 mx-4 h-[100%] rounded-2xl">
-                                    <img src={car.image_url}  alt={`${car.make} ${car.model}`}
-                                         className="h-full w-full object-cover"/>
+                        <div className="bg-dark-200 pb-4 hover:drop-shadow-lg hover:scale-105 transition duration-300">
+                            <CustomLink
+                                to={`/car/${car.id}`}
+                                key={car.id}
+                            >
+                                <div className="text-black p-1">
+                                    <div
+                                        className="h-[180px] flex flex-col items-center justify-center text-black mb-12
+                                        ">
+                                        <div className="bg-gray-800 bg-opacity-50 w-full md:px-20 max-md:px-16 h-[100%]">
+                                            <img src={car.image_url}  alt={`${car.make} ${car.model}`}
+                                                 className="h-full w-full object-cover"/>
+                                            <div className="text-left md:-mx-16 max-md:-mx-12 mt-2">
+                                                <h3 className="font-lora text-gray-700">{car.year} {car.make}</h3>
+                                                <h3 className="font-lora font-semibold text-gray-800">{car.model}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                {`${car.make} ${car.model} ${car.year}`}
-                            </div>
-                        </CustomLink>
+                            </CustomLink>
+                        </div>
                     ))}
                 </motion.div>
             </div>
