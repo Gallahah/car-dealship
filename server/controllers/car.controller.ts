@@ -1,10 +1,19 @@
-import { Request, Response } from 'express';
-import { DB } from "../core/DB";
-import { CarModel } from "../models/car.model";
-import { ParsedQs } from "qs";
+import {Request, Response} from 'express';
+import {DB} from "../core/DB";
+import {CarModel} from "../models/car.model";
+import {ParsedQs} from "qs";
+import AWS from 'aws-sdk';
 
 const db = new DB();
 const carModel = new CarModel(db);
+
+const s3 = new AWS.S3({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+    region: process.env.AWS_REGION!,
+});
+
+const DEFAULT_IMAGE_KEY = 'default-car-image.svg';
 
 const getCars = async (req: Request, res: Response) => {
     const { min, max, make, type } = req.query;
@@ -67,8 +76,45 @@ const getCar = async (req: Request, res: Response) => {
 
 const createCar = async (req: Request, res: Response) => {
     const data = req.body;
-    await carModel.createCar(data);
-    res.send(data);
+
+    if (req.file) {
+        if (!process.env.AWS_BUCKET) {
+            res.status(500).json({ error: 'Bucket name is not defined in environment variables' });
+            return;
+        }
+
+        try {
+            const params = {
+                Bucket: process.env.AWS_BUCKET!,
+                Key: `${Date.now()}_${req.file.originalname}`,
+                Body: req.file.buffer,
+                ContentType: req.file.mimetype,
+            };
+
+            const uploadResult = await s3.upload(params).promise();
+            data.imageUrl = uploadResult.Location;
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to upload image' });
+            return;
+        }
+    } else {
+        try {
+            data.imageUrl = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${DEFAULT_IMAGE_KEY}`;
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Failed to fetch default image' });
+            return;
+        }
+    }
+
+    try {
+        await carModel.createCar(data);
+        res.send(data);
+    } catch (error) {
+        console.error("Error creating car:", error);
+        res.status(500).send("Error creating car");
+    }
 }
 
 const updateCar = async (req: Request, res: Response) => {
@@ -89,5 +135,5 @@ export {
     getCars,
     createCar,
     updateCar,
-    deleteCar
-}
+    deleteCar,
+};

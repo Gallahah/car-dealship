@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import defaultImg from "@/assets/default_image.jpg";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CustomLink from "@/components/CustomLink.tsx";
 
 export type TCar = {

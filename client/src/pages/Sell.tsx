@@ -1,35 +1,40 @@
 import React, { useState } from 'react';
 import { TCar } from './Car';
+import { useNavigate } from "react-router-dom";
 
 const Sell = () => {
     const [cars, setCars] = useState<TCar[]>([]);
     const [type, setType] = useState("Sedan");
     const [make, setMake] = useState("Audi");
     const [model, setModel] = useState("");
-    const [year, setYear] = useState<string>(""); // Changed to string
-    const [price, setPrice] = useState<string>(""); // Changed to string
+    const [year, setYear] = useState<string>("");
+    const [price, setPrice] = useState<string>("");
+    const [image, setImage] = useState<File | null>(null);
 
-    const createCar = async (type: string, make: string, model: string, year: number | undefined, price: number | undefined) => {
+    const navigate = useNavigate();
+
+    const createCar = async (type: string, make: string, model: string, year: number | undefined, price: number | undefined, image?: File | null) => {
+        const formData = new FormData();
+        formData.append('make', make);
+        formData.append('type', type);
+        formData.append('model', model);
+        formData.append('year', year?.toString() || '');
+        formData.append('price', price?.toString() || '');
+        if (image) {
+            formData.append('image', image);
+        }
+
         const response = await fetch(`http://localhost:3001/car`, {
             method: "POST",
-            body: JSON.stringify({
-                make,
-                type,
-                model,
-                year,
-                price,
-            }),
-            headers: {
-                "Content-Type": "application/json",
-            },
+            body: formData,
         });
+
         return response.json();
     }
 
     const handleCreateCar = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validate year and price
         const yearNumber = Number(year);
         const priceNumber = Number(price);
 
@@ -38,13 +43,16 @@ const Sell = () => {
             return;
         }
 
-        const car = await createCar(type, make, model, yearNumber, priceNumber);
+        const car = await createCar(type, make, model, yearNumber, priceNumber, image);
         setCars([...cars, car]);
-        setType("");
-        setMake("");
+        setType("Sedan");
+        setMake("Audi");
         setModel("");
         setYear("");
         setPrice("");
+        setImage(null);
+
+        navigate('/home');
     }
 
     return (
@@ -66,10 +74,10 @@ const Sell = () => {
                                 }}>
                             {['Sedan', 'SUV', 'Coupe', 'Hatchback', 'Wagon', 'Luxury', 'Truck', 'Minivan', 'Convertible', 'Electric', 'Crossover', 'Sports Car', 'Compact', 'Full-size', 'Hybrid', 'Midsize']
                                 .map((type, index) => (
-                                <option key={index} value={type}>
-                                    {type}
-                                </option>
-                            ))}
+                                    <option key={index} value={type}>
+                                        {type}
+                                    </option>
+                                ))}
                         </select>
                     </div>
 
@@ -127,10 +135,25 @@ const Sell = () => {
                                    setPrice(e.target.value);
                                }}/>
                     </div>
+                    <div className="gap-8 py-6 text-black">
+                        <label htmlFor="car-image">Upload Image:</label>
+                        <input
+                            id="car-image"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                if (e.target.files && e.target.files[0]) {
+                                    setImage(e.target.files[0]);
+                                }
+                            }}
+                        />
+                    </div>
                     <div className="gap-8 flex justify-center items-center py-6">
                         <button
-                            className="text-lg font-semibold transition duration-200 hover:text-white hover:bg-purple-800 py-2 border border-purple-600 bg-gray-800 drop-shadow rounded-md w-4/6">Add
-                            Car
+                            className="text-lg font-semibold transition duration-200 hover:text-white
+                            hover:bg-purple-800 py-2 border border-purple-600 bg-gray-800 drop-shadow rounded-md w-4/6"
+                        >
+                            Sell Car
                         </button>
                     </div>
                 </form>

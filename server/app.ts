@@ -1,7 +1,11 @@
+import dotenv from 'dotenv';
 import express, { Application, json } from 'express';
-import { carRouter } from "./routes/car.router";
-import cors from "cors";
-import {userRouter} from "./routes/user.router";
+import cors from 'cors';
+import multer from 'multer';
+import { carRouter } from './routes/car.router';
+import { userRouter } from './routes/user.router';
+
+dotenv.config();
 
 const app: Application = express();
 const port = 3001;

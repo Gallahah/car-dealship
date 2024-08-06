@@ -10,6 +10,7 @@ type TCar = {
     year: number;
     type: string;
     price: number;
+    image_url: string;
 };
 
 const Buy = () => {
@@ -32,7 +33,7 @@ const Buy = () => {
                 if (max) query += `max=${max}&`;
                 if (make) query += `make=${make}&`;
                 if (type) query += `type=${type}&`;
-                query = query.slice(0, -1); // Remove trailing '&'
+                query = query.slice(0, -1);
             }
 
             const response = await fetch(query);
@@ -67,6 +68,10 @@ const Buy = () => {
                                 font-semibold bg-gradient-to-br from-purple-700 to-gray-900 flex items-center
                                 justify-center transition duration-500 hover:scale-105 hover:text-white
                                 hover:animate-pulse hover:border-purple-800">
+                                <div className="w-7/12 bg-gray-800 bg-opacity-50 px-2 mx-4 h-[100%] rounded-2xl">
+                                    <img src={car.image_url}  alt={`${car.make} ${car.model}`}
+                                         className="h-full w-full object-cover"/>
+                                </div>
                                 {`${car.make} ${car.model} ${car.year}`}
                             </div>
                         </CustomLink>

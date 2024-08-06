@@ -89,7 +89,10 @@ const Login = ({ setFirstName }: Props) => {
                             </CustomLink>
                         </button>
                         <p className="text-sm font-medium text-gray-400 text-center">
-                            Don't have an account yet? <CustomLink to="/signup" className="text-purple-500 hover:underline">Sign Up</CustomLink>
+                            Don't have an account yet?
+                            <CustomLink to="/signup">
+                                <span className="text-purple-500 hover:underline">Sign Up</span>
+                            </CustomLink>
                         </p>
                     </form>
                 </div>
