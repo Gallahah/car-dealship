@@ -1,11 +1,9 @@
 FROM public.ecr.aws/docker/library/node:16.16.0-slim
+WORKDIR /app/server
 
-WORKDIR /app
-
-COPY . .
-
+COPY server/package*.json ./
 RUN npm install
 
-EXPOSE 3000
+COPY server/ .
 
-CMD ["node", "index.js"]
+CMD ["node", "your-app-entry-point.js"]
