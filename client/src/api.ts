@@ -2,9 +2,35 @@ const BASE_URL = process.env.NODE_ENV === 'production'
     ? "/car"
     : "http://localhost:3001/car";
 
-// Buy.tsx show cars table
-export const fetchCars = async () => {
-    const response = await fetch(`${BASE_URL}`);
+// Buy.tsx show cars table & Home.tsx filter tabs
+export const fetchCars = async (params: Record<string, string> = {}) => {
+    const queryString = new URLSearchParams(params).toString();
+    const response = await fetch(`${BASE_URL}${queryString ? `?${queryString}` : ''}`);
+
+    return await response.json();
+};
+
+// Car.tsx fetch only the specified by id row in the table
+export const fetchCar = async (id: number) => {
+    const response = await fetch(`${BASE_URL}/${id}`);
+
+    return await response.json();
+};
+
+export const updateCarPrice = async (id: number, price: number) => {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price }),
+    });
+
+    return await response.json();
+};
+
+export const deleteCar = async (id: number) => {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+        method: "DELETE",
+    });
 
     return await response.json();
 };

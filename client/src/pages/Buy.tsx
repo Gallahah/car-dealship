@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CustomLink from "@/components/CustomLink";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { fetchCars } from "@/api.ts";
 
 type TCar = {
     id: number;
@@ -18,30 +19,25 @@ const Buy = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const fetchCars = async () => {
+        const loadCars = async () => {
             const params = new URLSearchParams(location.search);
             const min = params.get('min');
             const max = params.get('max');
             const make = params.get('make');
             const type = params.get('type');
 
-            let query = `http://localhost:3001/car`;
+            const query: Record<string, string> = {};
 
-            if (min || max || make || type) {
-                query += '?';
-                if (min) query += `min=${min}&`;
-                if (max) query += `max=${max}&`;
-                if (make) query += `make=${make}&`;
-                if (type) query += `type=${type}&`;
-                query = query.slice(0, -1);
-            }
+            if (min) query.min = min;
+            if (max) query.max = max;
+            if (make) query.make = make;
+            if (type) query.type = type;
 
-            const response = await fetch(query);
-            const newCars = await response.json();
+            const newCars = await fetchCars(query);
             setCars(newCars);
         };
 
-        fetchCars();
+        loadCars();
     }, [location.search]);
 
     return (

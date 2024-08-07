@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec ts-node app.ts",
-    "start:prod": "ts-node app.ts"
+    "build": "NODE_ENV=production tsc",
+    "start:prod": "NODE_ENV=production ts-node app.ts"
   },
   "keywords": [],
   "author": "",

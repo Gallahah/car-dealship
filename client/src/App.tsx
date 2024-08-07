@@ -6,8 +6,8 @@ import Home from "@/pages/Home";
 import Buy from "@/pages/Buy";
 import Sell from "@/pages/Sell";
 import Car from "@/pages/Car";
-import SignUp from "@/pages/SignUp.tsx";
-import Login from "@/pages/Login.tsx";
+// import SignUp from "@/pages/SignUp.tsx";
+// import Login from "@/pages/Login.tsx";
 import NotFound from "@/pages/NotFound.tsx";
 
 function App() {
@@ -39,8 +39,8 @@ function App() {
                     <Route path="/buy" element={<Buy />} />
                     <Route path="/sell" element={<Sell />} />
                     <Route path="/car/:id" element={<Car />} />
-                    <Route path="/login" element={<Login setFirstName={setFirstName}/>} />
-                    <Route path="/signup" element={<SignUp />} />
+                    {/*<Route path="/login" element={<Login setFirstName={setFirstName}/>} />*/}
+                    {/*<Route path="/signup" element={<SignUp />} />*/}
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
