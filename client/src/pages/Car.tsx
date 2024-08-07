@@ -39,13 +39,13 @@ const Car = () => {
     };
 
     // Update car price
-    // const handleUpdateCarPrice = async () => {
-    //     if (id) {
-    //         const newPrice = price + 100;
-    //         await updateCarPrice(parseInt(id), newPrice);
-    //         setPrice(newPrice);
-    //     }
-    // };
+    const handleUpdateCarPrice = async () => {
+        if (id) {
+            const newPrice = price + 100;
+            await updateCarPrice(parseInt(id), newPrice);
+            setPrice(newPrice);
+        }
+    };
 
     if (!car) return <div>Loading...</div>;
 
@@ -64,9 +64,9 @@ const Car = () => {
                 <div>asd</div>
             </div>
 
-            {/*<button onClick={handleUpdateCarPrice}>*/}
-            {/*    Increase Price*/}
-            {/*</button>*/}
+            <button onClick={handleUpdateCarPrice}>
+                Increase Price
+            </button>
 
             {/* DELETE CAR BUTTON */}
             <CustomLink to={"/home"}>

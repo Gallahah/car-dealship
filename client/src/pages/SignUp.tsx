@@ -11,14 +11,14 @@ export type TUser = {
 
 const SignUp = () => {
     const [users, setUsers] = useState<TUser[]>([]);
-    const [firstName, setFirstName] = useState();
-    const [lastName, setLastName] = useState();
-    const [email, setEmail] = useState("");
-    const [emailError, setEmailError] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [confirmPasswordError, setConfirmPasswordError] = useState("");
+    const [firstName, setFirstName] = useState<string>("");
+    const [lastName, setLastName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [emailError, setEmailError] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [confirmPassword, setConfirmPassword] = useState<string>("");
+    const [passwordError, setPasswordError] = useState<string>("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
 
     // fetching the data/columns of the users table
     const createUser = async (firstName: string, lastName: string, email: string, password: string) => {
@@ -156,7 +156,11 @@ const SignUp = () => {
                                 <CustomLink to="/login"> Create an account </CustomLink>
                             </button>
                             <p className="text-sm font-medium text-gray-400 text-center">
-                                Already have an account? <CustomLink to="/login" className="text-purple-500 hover:underline">Login</CustomLink>
+                                Already have an account? <CustomLink to="/login">
+                                <span className="text-purple-500 hover:underline">
+                                    Login
+                                </span>
+                            </CustomLink>
                             </p>
                         </form>
                 </div>
