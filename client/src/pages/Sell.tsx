@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TCar } from './Car';
 import { useNavigate } from "react-router-dom";
+import { createCar } from '@/api.ts';
 
 const Sell = () => {
     const [cars, setCars] = useState<TCar[]>([]);
@@ -13,25 +14,6 @@ const Sell = () => {
 
     const navigate = useNavigate();
 
-    const createCar = async (type: string, make: string, model: string, year: number | undefined, price: number | undefined, image?: File | null) => {
-        const formData = new FormData();
-        formData.append('make', make);
-        formData.append('type', type);
-        formData.append('model', model);
-        formData.append('year', year?.toString() || '');
-        formData.append('price', price?.toString() || '');
-        if (image) {
-            formData.append('image', image);
-        }
-
-        const response = await fetch(`http://localhost:3001/car`, {
-            method: "POST",
-            body: formData,
-        });
-
-        return response.json();
-    }
-
     const handleCreateCar = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -43,7 +25,7 @@ const Sell = () => {
             return;
         }
 
-        const car = await createCar(type, make, model, yearNumber, priceNumber, image);
+        const car = await createCar({ type, make, model, year: yearNumber, price: priceNumber, image });
         setCars([...cars, car]);
         setType("Sedan");
         setMake("Audi");
@@ -54,6 +36,7 @@ const Sell = () => {
 
         navigate('/home');
     }
+
 
     return (
         <section
@@ -71,7 +54,7 @@ const Sell = () => {
                         <select required
                                 id="car-type"
                                 className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
-                                value={type} placeholder="Type"
+                                value={type}
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setType(e.target.value);
                                 }}>
@@ -89,7 +72,7 @@ const Sell = () => {
                         <select required
                                 id="car-make"
                                 className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
-                                value={make} placeholder="Make"
+                                value={make}
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setMake(e.target.value);
                                 }}>

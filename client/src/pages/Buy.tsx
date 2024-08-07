@@ -25,7 +25,7 @@ const Buy = () => {
             const make = params.get('make');
             const type = params.get('type');
 
-            let query = `http://localhost:3001/cars`;
+            let query = `http://localhost:3001/car`;
 
             if (min || max || make || type) {
                 query += '?';
