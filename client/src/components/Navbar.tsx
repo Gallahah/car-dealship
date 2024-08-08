@@ -4,6 +4,7 @@ import Logo from "@/assets/logo_dark.png";
 import CustomLink from "@/components/CustomLink";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/20/solid";
+import { motion } from "framer-motion";
 
 interface Props {
     isTopOfPage: boolean; // check if the scroll position is at the top of the page
@@ -78,7 +79,7 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
                         </div>
                     ) : (
                         // Mobile menu toggle
-                        <button className="rounded-t-full rounded-l-full bg-white p-2"
+                        <button className="rounded-xl bg-white p-2"
                                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                         >
                             <Bars3Icon className="h-6 w-6 text-dark-200" />
@@ -90,26 +91,55 @@ const Navbar = ({ isTopOfPage, firstName }: Props) => {
 
         {/* MOBILE MENU */}
         {!isAboveMediumScreens && isMenuToggled && (
-            <div className="fixed right-0 bottom-0 z-40 h-full w-full bg-gray-800 drop-shadow-xl text-white font-semibold border-l-2 border-dark-200">
+            <motion.div
+                className="fixed right-0 bottom-0 top-0 z-40 h-full w-[75%] bg-gray-200 text-gray-900 font-semibold"
+                initial={{ x: "100%" }}
+                animate={{ x: "0%" }}
+                exit={{ x: "100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+            >
                 {/* CLOSE ICON */}
                 <div className="flex justify-end p-12">
                     <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
-                        <XMarkIcon className="h-8 w-8 text-white border-2 rounded-md" />
+                        <XMarkIcon className="h-8 w-8 text-gray-900" />
                     </button>
                 </div>
 
                 {/* ITEMS/LINKS */}
                 <div className="ml-[33%] flex flex-col gap-10 text-3xl mt-14">
-                    <CustomLink to="/">Home</CustomLink>
-                    <CustomLink to="/buy">Buy</CustomLink>
-                    <CustomLink to="/sell">Sell</CustomLink>
-                    <div className="bg-white h-0.5 rounded-full brightness-50 w-1/6"></div>
+                    <CustomLink to="/">
+                        <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                            Home
+                        </button>
+                    </CustomLink>
+                    <CustomLink to="/buy">
+                        <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                            Buy
+                        </button>
+                    </CustomLink>
+                    <CustomLink to="/sell">
+                        <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                            Sell
+                        </button>
+                    </CustomLink>
                     <div className="mt-2 space-y-6">
-                        <CustomLink to="/login"><span className={`font-lora font-medium`}>Login</span></CustomLink>
-                        <CustomLink to="/signup"><span className={`font-lora font-medium`}>Sign Up</span></CustomLink>
+                        <CustomLink to="/login">
+                            <span className={`font-lora font-medium`}>
+                                <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                                    Login
+                                </button>
+                            </span>
+                        </CustomLink>
+                        <CustomLink to="/signup">
+                            <span className={`font-lora font-medium`}>
+                                <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                                    Sign Up
+                                </button>
+                            </span>
+                        </CustomLink>
                     </div>
                 </div>
-            </div>
+            </motion.div>
         )}
     </nav>;
 }

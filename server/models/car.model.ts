@@ -25,7 +25,7 @@ export class CarModel {
     }
 
     async updateCarPrice(id: number, price: number): Promise<boolean> {
-        await this.conn.execute("UPDATE Cars SET price = ? WHERE id = ?", [price, id]);
+        await this.conn.execute("UPDATE cars SET price = ? WHERE id = ?", [price, id]);
         return true;
     }
 

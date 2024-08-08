@@ -10,14 +10,14 @@ import CarProsPricing from "@/assets/car-pros-pricing.jpg";
 import CarProsCustomer from "@/assets/car-pros-customer.jpg";
 
 const Home = () => {
-    return <section id="home" className="gap-16 py-10 md:pb-0">
+    return <section id="home" className="gap-16 pt-10 md:pb-0">
         <div className="items-center mt-10">
-            <div className="overflow-hidden w-full md:h-96 h-64 brightness-90">
-                <img alt="Car Image" src={HeroBackground} className="fixed object-cover w-full h-full object-[50%_60%]" />
+            <div className="overflow-hidden w-full md:h-96 h-64 brightness-90 max-md:bg-black">
+                <img alt="Car Image" src={HeroBackground} className="fixed object-cover w-full h-full object-[50%_60%] max-md:opacity-40" />
                 <div className="relative text-center pt-10">
-                    <h2 className="text-black text-4xl">Your Journey Begins Here!</h2>
+                    <h2 className="text-black text-4xl max-md:text-primary-100">Your Journey Begins Here!</h2>
                     <CustomLink to="/Buy">
-                        <button className="mt-4 p-4 mx-auto items-center flex justify-center
+                        <button className="md:mt-4 max-md:mt-10 p-4 mx-auto items-center flex justify-center
                         before:ease relative overflow-hidden border-b-4 border-r-2 border-dark-100
                         text-dark-100 font-semibold
                         shadow-xl transition-all before:absolute before:top-1/4 before:h-0 before:w-96
@@ -30,8 +30,9 @@ const Home = () => {
                     </CustomLink>
                 </div>
             </div>
-            <div>
+            <div className="mt-8">
                 <div>
+                    <h2 className="text-center text-gray-900 font-semibold text-3xl mb-8">BROWSE OUR SELECTION.</h2>
                     <TabsContainer />
                 </div>
             </div>

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { TCar } from './Car';
+// import { TCar } from './Car';
 import { useNavigate } from "react-router-dom";
 import { createCar } from '@/api.ts';
 
 const Sell = () => {
-    const [cars, setCars] = useState<TCar[]>([]);
     const [type, setType] = useState("Sedan");
     const [make, setMake] = useState("Audi");
     const [model, setModel] = useState("");
@@ -25,8 +24,8 @@ const Sell = () => {
             return;
         }
 
-        const car = await createCar({ type, make, model, year: yearNumber, price: priceNumber, image });
-        setCars([...cars, car]);
+        await createCar({ type, make, model, year: yearNumber, price: priceNumber, image });
+
         setType("Sedan");
         setMake("Audi");
         setModel("");
@@ -37,23 +36,19 @@ const Sell = () => {
         navigate('/home');
     }
 
-
     return (
         <section
             id="sell"
-            className="gap-16 py-10 md:h-full md:pb-20 mt-8 max-md:bg-dark-100"
+            className="gap-16 py-10 md:h-full md:pb-20 mt-20 max-md:bg-gray-200 text-dark-100"
         >
-            <h1 className="text-2xl font-semibold flex justify-center mt-16 py-2 md:border-4 md:bg-dark-100
-             rounded-lg md:border-dark-100 w-2/5 mx-auto">
-                List a car
-            </h1>
-            <div className="py-8 md:w-2/5 max-md:w-3/5 my-8 md:flex justify-center items-center mx-auto bg-dark-100 rounded-lg">
-                <form onSubmit={handleCreateCar}>
-                    <div className="flex justify-center items-center py-6 w-1/2 mx-auto">
-                        <label htmlFor="car-type"></label>
+            <h1 className="text-2xl font-bold text-center mb-8">List a Car</h1>
+            <div className="py-8 md:w-1/2 max-md:w-3/4 my-8 md:flex justify-center items-center mx-auto bg-white rounded-lg shadow-lg">
+                <form onSubmit={handleCreateCar} className="w-full px-8 py-6">
+                    <div className="mb-6">
+                        <label htmlFor="car-type" className="block mb-2 font-bold text-gray-700">Car Type</label>
                         <select required
                                 id="car-type"
-                                className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
+                                className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                                 value={type}
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setType(e.target.value);
@@ -67,11 +62,11 @@ const Sell = () => {
                         </select>
                     </div>
 
-                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
-                        <label htmlFor="car-make"></label>
+                    <div className="mb-6">
+                        <label htmlFor="car-make" className="block mb-2 font-bold text-gray-700">Make</label>
                         <select required
                                 id="car-make"
-                                className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
+                                className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                                 value={make}
                                 onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                                     setMake(e.target.value);
@@ -90,42 +85,42 @@ const Sell = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
-                        <label htmlFor="car-model"></label>
+                    <div className="mb-6">
+                        <label htmlFor="car-model" className="block mb-2 font-bold text-gray-700">Model</label>
                         <input required
                                id="car-model"
-                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
+                               className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                                value={model} placeholder="Model"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setModel(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
-                        <label htmlFor="car-year"></label>
+                    <div className="mb-6">
+                        <label htmlFor="car-year" className="block mb-2 font-bold text-gray-700">Year</label>
                         <input required
                                id="car-year"
-                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
+                               className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                                value={year} placeholder="Year"
                                pattern="\d{4}"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setYear(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6 md:w-1/2 mx-auto">
-                        <label htmlFor="car-price"></label>
+                    <div className="mb-6">
+                        <label htmlFor="car-price" className="block mb-2 font-bold text-gray-700">Price</label>
                         <input required
                                id="car-price"
-                               className="block w-full p-2.5 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-100 bg-gray-100"
+                               className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                                value={price} placeholder="Price"
                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                    setPrice(e.target.value);
                                }}/>
                     </div>
-                    <div className="gap-8 py-6 text-black w-2/3 mx-auto text-center">
-                        <label htmlFor="car-image">Upload Image:</label>
+                    <div className="mb-6">
+                        <label htmlFor="car-image" className="block mb-2 font-bold text-gray-700">Upload Image</label>
                         <input
                             id="car-image"
-                            className="block w-full p-2.5"
+                            className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
                             type="file"
                             accept="image/*"
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,10 +130,9 @@ const Sell = () => {
                             }}
                         />
                     </div>
-                    <div className="gap-8 flex justify-center items-center py-6">
+                    <div className="flex justify-center">
                         <button
-                            className="text-lg font-semibold transition duration-200 hover:text-white border border-dark-100
-                            hover:border-dark-200 py-2 bg-dark-200 drop-shadow rounded-md w-4/6"
+                            className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
                         >
                             Sell Car
                         </button>

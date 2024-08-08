@@ -56,11 +56,11 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Price',
             content: (
-                <div className="grid md:grid-cols-5 grid-cols-2 gap-2">
+                <div className="grid md:grid-cols-5 grid-cols-2 gap-4">
                     {priceRanges.map(range => (
                         <button
                             key={range.label}
-                            className="border-2 p-2 rounded-xl"
+                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
                             onClick={() => navigate(`/buy?min=${range.min}&max=${range.max === Infinity ? '' : range.max}`)}
                         >
                             {range.label}
@@ -72,11 +72,11 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Make',
             content: (
-                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-2">
+                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-4">
                     {makes.map(make => (
                         <button
                             key={make}
-                            className="border-2 p-2 rounded-xl"
+                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
                             onClick={() => navigate(`/buy?make=${make}`)}
                         >
                             {make}
@@ -88,11 +88,11 @@ const TabsContainer: React.FC = () => {
         {
             label: 'Type',
             content: (
-                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-2">
+                <div className="grid md:grid-cols-6 max-md:grid-cols-3 gap-4">
                     {types.map(type => (
                         <button
                             key={type}
-                            className="border-2 p-2 rounded-xl"
+                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
                             onClick={() => navigate(`/buy?type=${type}`)}
                         >
                             {type}

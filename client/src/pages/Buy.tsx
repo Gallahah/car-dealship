@@ -1,3 +1,5 @@
+// client/pages/Buy.tsx
+
 import { useEffect, useState } from "react";
 import CustomLink from "@/components/CustomLink";
 import { motion } from "framer-motion";
@@ -52,27 +54,26 @@ const Buy = () => {
                         hidden: { opacity: 0, y: -30 },
                         visible: { opacity: 1, y: 0 },
                     }}
-                    className="cars w-full py-6 px-12 grid md:grid-cols-3 gap-4"
+                    className="cars w-full py-6 px-12 grid md:grid-cols-3 gap-8"
                 >
                     {cars.map((car: TCar) => (
-                        <div className="bg-dark-200 pb-4 hover:drop-shadow-lg hover:scale-105 transition duration-300">
+                        <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
                             <CustomLink
                                 to={`/car/${car.id}`}
                                 key={car.id}
                             >
-                                <div className="text-black p-1">
-                                    <div
-                                        className="h-[180px] flex flex-col items-center justify-center text-black mb-12
-                                        ">
-                                        <div className="bg-gray-800 bg-opacity-50 w-full md:px-20 max-md:px-16 h-[100%]">
-                                            <img src={car.image_url}  alt={`${car.make} ${car.model}`}
-                                                 className="h-full w-full object-cover"/>
-                                            <div className="text-left md:-mx-16 max-md:-mx-12 mt-2">
-                                                <h3 className="font-lora text-gray-700">{car.year} {car.make}</h3>
-                                                <h3 className="font-lora font-semibold text-gray-800">{car.model}</h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="h-[240px] overflow-hidden relative">
+                                    <img
+                                        src={car.image_url}
+                                        alt={`${car.make} ${car.model}`}
+                                        className="bg-gradient-to-t from-black/60 to-transparent h-full w-full object-cover transform transition-transform duration-300 hover:scale-110"
+                                    />
+                                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent"></div>
+                                </div>
+                                <div className="px-6 py-4">
+                                    <h3 className="font-bold text-lg mb-2 text-black">{car.make} {car.model}</h3>
+                                    <p className="text-gray-600">{car.year} • {car.type}</p>
+                                    <p className="text-gray-800 font-bold text-xl mt-2">${car.price.toFixed(2)}</p>
                                 </div>
                             </CustomLink>
                         </div>

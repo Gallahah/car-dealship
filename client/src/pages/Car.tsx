@@ -40,10 +40,15 @@ const Car = () => {
 
     // Update car price
     const handleUpdateCarPrice = async () => {
-        if (id) {
+        if (id && car) {
             const newPrice = price + 100;
+            const updatedCar: TCar = {
+                ...car,
+                price: newPrice,
+            };
             await updateCarPrice(parseInt(id), newPrice);
             setPrice(newPrice);
+            setCar(updatedCar);
         }
     };
 
@@ -59,21 +64,40 @@ const Car = () => {
                     <SocialIcon target="_blank" url="https://www.whatsapp.com" />
                 </div>
             </div>
-            <div className="h-full flex items-center justify-between px-12">
-                <img src={car.image_url} alt={`${car.make} ${car.model}`} />
-                <div>asd</div>
+            <div className="container mx-auto flex items-center justify-between px-12 py-8">
+                <div className="w-1/2">
+                    <img src={car.image_url} alt={`${car.make} ${car.model}`} className="w-full max-h-80 object-cover" />
+                </div>
+                <div className="w-1/2 ml-12">
+                    <h2 className="text-2xl font-bold mb-4">{car.make} {car.model} ({car.year})</h2>
+                    <p className="text-lg mb-4">Type: {car.type}</p>
+                    <p className="text-lg mb-4">Price: ${car.price.toFixed(2)}</p>
+                    <div className="flex justify-between">
+                        <button
+                            className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded"
+                            onClick={handleUpdateCarPrice}
+                        >
+                            Increase Price
+                        </button>
+                        <CustomLink to="/home">
+                            <button
+                                className="bg-light-100 hover:bg-light-200 text-white font-bold py-2 px-4 rounded"
+                                onClick={handleDeleteCar}
+                            >
+                                Purchase
+                            </button>
+                        </CustomLink>
+                    </div>
+                </div>
             </div>
 
-            <button onClick={handleUpdateCarPrice}>
-                Increase Price
-            </button>
-
-            {/* DELETE CAR BUTTON */}
-            <CustomLink to={"/home"}>
-                <button onClick={handleDeleteCar}>
-                    Purchase
-                </button>
-            </CustomLink>
+            <div className="container mx-auto px-12 py-8">
+                <h3 className="text-xl font-bold mb-4">Additional Information</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Sed ut risus in augue luctus venenatis. Sed tincidunt, magna a ultricies accumsan, mi
+                    enim tempor nulla, eget ullamcorper felis tellus at mi. Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit.</p>
+            </div>
         </section>
     );
 };

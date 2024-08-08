@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Car dealership app server",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node app.ts",
@@ -9,7 +9,7 @@
     "start": "NODE_ENV=production node dist/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nikolay Dimitrov",
   "license": "ISC",
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
