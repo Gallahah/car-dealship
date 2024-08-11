@@ -1,5 +1,7 @@
 import CustomLink from "@/components/CustomLink.tsx";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {loginUser} from "@/api.ts";
 
 interface Props {
     setFirstName: (firstName: string) => void;
@@ -10,47 +12,23 @@ const Login = ({ setFirstName }: Props) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
+    const navigate = useNavigate();
+
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:3001/user/login", {
-                method: "POST",
-                body: JSON.stringify({ email, password }),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                const token = data.token;
-
-                localStorage.setItem("token", token);
-
-                const userResponse = await fetch("http://localhost:3001/user", {
-                    method: "POST",
-                    body: JSON.stringify({ email }),
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                });
-
-                if (userResponse.ok) {
-                    const userData = await userResponse.json();
-                    const firstName = userData.firstName;
-                    setFirstName(firstName);
-                }
-
-                window.location.href = "/home";
+            const userData = await loginUser(email, password);
+            if (userData) {
+                setFirstName(userData.firstName);
+                navigate("/home");
             } else {
                 setError("Invalid email or password");
             }
         } catch (error) {
             setError("An error occurred during login");
-            console.error(error);
         }
+
     };
 
     return (

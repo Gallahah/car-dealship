@@ -79,8 +79,44 @@ export const createUser = async (userData: {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ userData }),
+        body: JSON.stringify(userData),
     });
 
     return await response.json();
-}
+};
+
+// Login.tsx login user
+export const loginUser = async (email: string, password: string): Promise<{ firstName: string } | null> => {
+    const response = await fetch(`${USER_URL}/login`, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Invalid email or password");
+    }
+
+    const data = await response.json();
+    const token = data.token;
+
+    localStorage.setItem("token", token);
+
+    const userResponse = await fetch(`${USER_URL}`, {
+        method: "GET",
+        body: JSON.stringify({ email }),
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!userResponse.ok) {
+        throw new Error("Invalid token");
+    }
+
+    const userData = await userResponse.json();
+    return { firstName: userData.firstName };
+};

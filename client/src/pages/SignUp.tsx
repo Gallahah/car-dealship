@@ -11,8 +11,6 @@ export type TUser = {
     password: string;
 }
 
-const navigate = useNavigate();
-
 const SignUp = () => {
     const [users, setUsers] = useState<TUser[]>([]);
     const [firstName, setFirstName] = useState<string>("");
@@ -23,6 +21,8 @@ const SignUp = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>("");
     const [passwordError, setPasswordError] = useState<string>("");
     const [confirmPasswordError, setConfirmPasswordError] = useState<string>("");
+
+    const navigate = useNavigate();
 
     // handle the creation of a new user
     const handleCreateUser = async (e: React.FormEvent) => {
@@ -54,7 +54,7 @@ const SignUp = () => {
         setPasswordError("");
         setConfirmPasswordError("");
 
-        navigate('/home');
+        navigate('/login');
     };
 
     // email validation regex
