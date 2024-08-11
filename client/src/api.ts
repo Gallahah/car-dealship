@@ -1,28 +1,29 @@
 const BASE_URL = process.env.NODE_ENV === 'production'
-    ? "/car"
-    : "http://localhost:3001/car";
+    ? ""
+    : "http://localhost:3001";
 
-const USER_URL = process.env.NODE_ENV === 'production'
-    ? "/user"
-    : "http://localhost:3001/user";
+const createEndpoint = (path: string) => `${BASE_URL}${path}`;
+
+const CAR_ENDPOINT = createEndpoint('/car');
+const USER_ENDPOINT = createEndpoint('/user');
 
 // Buy.tsx show cars table & Home.tsx filter tabs
 export const fetchCars = async (params: Record<string, string> = {}) => {
     const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(`${BASE_URL}${queryString ? `?${queryString}` : ''}`);
+    const response = await fetch(`${CAR_ENDPOINT}${queryString ? `?${queryString}` : ''}`);
 
     return await response.json();
 };
 
 // Car.tsx fetch only the specified by id row in the table
 export const fetchCar = async (id: number) => {
-    const response = await fetch(`${BASE_URL}/${id}`);
+    const response = await fetch(`${CAR_ENDPOINT}/${id}`);
 
     return await response.json();
 };
 
 export const updateCarPrice = async (id: number, price: number) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`${CAR_ENDPOINT}/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price }),
@@ -32,7 +33,7 @@ export const updateCarPrice = async (id: number, price: number) => {
 };
 
 export const deleteCar = async (id: number) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
+    const response = await fetch(`${CAR_ENDPOINT}/${id}`, {
         method: "DELETE",
     });
 
@@ -58,7 +59,7 @@ export const createCar = async (carData: {
         formData.append('image', carData.image);
     }
 
-    const response = await fetch(`${BASE_URL}`, {
+    const response = await fetch(`${CAR_ENDPOINT}`, {
         method: "POST",
         body: formData,
     });
@@ -74,7 +75,7 @@ export const createUser = async (userData: {
     password: string;
 }) => {
 
-    const response = await fetch(`${USER_URL}`, {
+    const response = await fetch(`${USER_ENDPOINT}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -87,7 +88,7 @@ export const createUser = async (userData: {
 
 // Login.tsx login user
 export const loginUser = async (email: string, password: string): Promise<{ firstName: string } | null> => {
-    const response = await fetch(`${USER_URL}/login`, {
+    const response = await fetch(`${USER_ENDPOINT}/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: {
@@ -104,7 +105,7 @@ export const loginUser = async (email: string, password: string): Promise<{ firs
 
     localStorage.setItem("token", token);
 
-    const userResponse = await fetch(`${USER_URL}`, {
+    const userResponse = await fetch(`${USER_ENDPOINT}`, {
         method: "GET",
         body: JSON.stringify({ email }),
         headers: {

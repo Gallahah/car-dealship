@@ -38,9 +38,6 @@ app.use((0, cors_1.default)());
 app.use((0, express_1.json)());
 app.use(car_router_1.carRouter);
 app.use(user_router_1.userRouter);
-app.get('/', (req, res) => {
-    res.send('Hello, world!');
-});
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

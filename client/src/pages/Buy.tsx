@@ -57,11 +57,11 @@ const Buy = () => {
                     className="cars w-full py-6 px-12 grid md:grid-cols-3 gap-8"
                 >
                     {cars.map((car: TCar) => (
-                        <div className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                        <div
+                            key={car.id}
+                            className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
                             <CustomLink
-                                to={`/car/${car.id}`}
-                                key={car.id}
-                            >
+                                to={`/car/${car.id}`}>
                                 <div className="h-[240px] overflow-hidden relative">
                                     <img
                                         src={car.image_url}
