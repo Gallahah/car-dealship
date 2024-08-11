@@ -36,7 +36,7 @@ class CarModel {
     }
     updateCarPrice(id, price) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.conn.execute("UPDATE Cars SET price = ? WHERE id = ?", [price, id]);
+            yield this.conn.execute("UPDATE cars SET price = ? WHERE id = ?", [price, id]);
             return true;
         });
     }

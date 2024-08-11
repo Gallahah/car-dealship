@@ -61,6 +61,9 @@ exports.loginUser = loginUser;
 const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password } = req.body;
     try {
+        if (!password) {
+            return res.status(400).json({ error: 'Password required!' });
+        }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const userData = {
             firstName,
