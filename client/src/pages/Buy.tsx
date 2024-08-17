@@ -1,5 +1,3 @@
-// client/pages/Buy.tsx
-
 import { useEffect, useState } from "react";
 import CustomLink from "@/components/CustomLink";
 import { motion } from "framer-motion";

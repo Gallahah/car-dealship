@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { TCar } from './Car';
 import { useNavigate } from "react-router-dom";
 import { createCar } from '@/api.ts';
 

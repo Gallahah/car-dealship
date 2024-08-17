@@ -8,11 +8,13 @@ import Sell from "@/pages/Sell";
 import Car from "@/pages/Car";
 import SignUp from "@/pages/SignUp.tsx";
 import Login from "@/pages/Login.tsx";
+import UserProfile from "@/pages/UserProfile.tsx";
 import NotFound from "@/pages/NotFound.tsx";
+import {UserContextProvider} from "@/context/userContext.tsx";
 
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
-    const [firstName, setFirstName] = useState("");
+    // const [firstName, setFirstName] = useState("");
 
     // Check scroll position
     useEffect(() => {
@@ -31,7 +33,8 @@ function App() {
     // };
 
     return <div className="app bg-white">
-            <Navbar isTopOfPage={isTopOfPage} firstName={firstName}/>
+        <UserContextProvider>
+            <Navbar isTopOfPage={isTopOfPage} />
             <div>
                 <Routes>
                     <Route path="/" element={<Home />} />
@@ -39,12 +42,14 @@ function App() {
                     <Route path="/buy" element={<Buy />} />
                     <Route path="/sell" element={<Sell />} />
                     <Route path="/car/:id" element={<Car />} />
-                    <Route path="/login" element={<Login setFirstName={setFirstName}/>} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/profile" element={<UserProfile />}/>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
             <Footer />
+        </UserContextProvider>
     </div>
 
 }

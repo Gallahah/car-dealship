@@ -1,16 +1,14 @@
 import CustomLink from "@/components/CustomLink.tsx";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {loginUser} from "@/api.ts";
+import { loginUser } from "@/api.ts";
+import { UserContext } from "@/context/userContext.tsx";
 
-interface Props {
-    setFirstName: (firstName: string) => void;
-}
-
-const Login = ({ setFirstName }: Props) => {
+const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const { setUser } = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -19,16 +17,17 @@ const Login = ({ setFirstName }: Props) => {
 
         try {
             const userData = await loginUser(email, password);
-            if (userData) {
-                setFirstName(userData.firstName);
-                navigate("/home");
-            } else {
-                setError("Invalid email or password");
-            }
-        } catch (error) {
-            setError("An error occurred during login");
-        }
 
+            if (userData) {
+                setUser(userData);
+                navigate("/profile");
+            }
+
+        } catch (error) {
+            setEmail("");
+            setPassword("");
+            setError("Invalid email or password");
+        }
     };
 
     return (

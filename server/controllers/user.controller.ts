@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 const db = new DB();
 const userModel = new UserModel(db);
+const secret = process.env.JWT_SECRET as string;
 
 const getUsers = async (req: Request, res: Response) => {
     const data = await userModel.getAllUsers();
@@ -18,12 +19,6 @@ const getUser = async (req: Request, res: Response) => {
     res.send(data);
 }
 
-const getUserByEmail = async (req: Request, res: Response) => {
-    const { email } = req.body;
-    const data = await userModel.getUserByEmail(email);
-    res.send(data);
-}
-
 const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
@@ -31,21 +26,23 @@ const loginUser = async (req: Request, res: Response) => {
         const rows = await userModel.loginUser(email);
 
         if (rows.length === 0) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ error: 'Invalid email' });
         }
 
         const user = rows[0];
 
         const passwordMatch = await bcrypt.compare(password, user.password);
 
+        if (passwordMatch) {
+            jwt.sign({ email: user.email, id: user.id, firstName: user.firstName, lastName: user.lastName }, secret, { expiresIn: '1h' }, (err, token) => {
+                if (err) throw err;
+                res.cookie("token", token).json(user);
+            })
+        }
         if (!passwordMatch) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ error: 'Invalid password' });
         }
 
-        const token = jwt.sign({ email: user.email, id: user.id }, "secret_key", {
-            expiresIn: '1h',
-        });
-        return res.status(200).json({ token, firstName: user.firstName });
     } catch (error) {
         console.error('Error occurred during login:', error);
         return res.status(500).json({ error: 'An error occurred during login' });
@@ -58,6 +55,11 @@ const createUser = async (req: Request, res: Response) => {
     try {
         if (!password) {
             return res.status(400).json({ error: 'Password required!' });
+        }
+
+        const existingUser = await userModel.getUserByEmail(email);
+        if (existingUser) {
+            return res.status(409).json({ error: 'User already exists!' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -83,11 +85,16 @@ const deleteUser = async (req: Request, res: Response) => {
     res.send(id);
 }
 
-const updateUser = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const userData = req.body;
-    await userModel.updateUser(parseInt(id), userData);
-    res.status(200).send("Successfully updated user");
+const getProfile = async (req: Request, res: Response) => {
+    const {token} = req.cookies;
+    if (token) {
+        jwt.verify(token, secret, {}, (err, user) => {
+            if (err) return res.status(401).json({ error: 'Invalid token' });
+            res.json(user);
+        })
+    } else {
+        res.json(null);
+    }
 }
 
 export {
@@ -95,6 +102,6 @@ export {
     getUsers,
     createUser,
     deleteUser,
-    updateUser,
     loginUser,
+    getProfile
 }

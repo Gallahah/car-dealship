@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import express, { Application, json } from 'express';
 import cors from 'cors';
+import cookieParser from "cookie-parser";
 import { carRouter } from './routes/car.router';
 import { userRouter } from './routes/user.router';
 
@@ -9,8 +10,14 @@ dotenv.config();
 const app: Application = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
+
 app.use(json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.use(carRouter);
 app.use(userRouter);
 

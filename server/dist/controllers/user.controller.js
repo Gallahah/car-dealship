@@ -50,7 +50,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = jsonwebtoken_1.default.sign({ email: user.email, id: user.id }, "secret_key", {
             expiresIn: '1h',
         });
-        return res.status(200).json({ token, firstName: user.firstName });
+        return res.status(200).json({ token, firstName: user.firstName, lastName: user.lastName });
     }
     catch (error) {
         console.error('Error occurred during login:', error);
