@@ -29,13 +29,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importStar(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const car_router_1 = require("./routes/car.router");
 const user_router_1 = require("./routes/user.router");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
 app.use((0, express_1.json)());
+app.use((0, cookie_parser_1.default)());
+app.use(express_1.default.urlencoded({ extended: false }));
 app.use(car_router_1.carRouter);
 app.use(user_router_1.userRouter);
 app.listen(port, () => {

@@ -12,13 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.updateUser = exports.deleteUser = exports.createUser = exports.getUsers = exports.getUser = void 0;
+exports.getProfile = exports.loginUser = exports.deleteUser = exports.createUser = exports.getUsers = exports.getUser = void 0;
 const DB_1 = require("../core/DB");
 const user_model_1 = require("../models/user.model");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const db = new DB_1.DB();
 const userModel = new user_model_1.UserModel(db);
+const secret = process.env.JWT_SECRET;
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield userModel.getAllUsers();
     res.send(data);
@@ -30,27 +31,25 @@ const getUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(data);
 });
 exports.getUser = getUser;
-const getUserByEmail = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    const data = yield userModel.getUserByEmail(email);
-    res.send(data);
-});
 const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
         const rows = yield userModel.loginUser(email);
         if (rows.length === 0) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+            return res.status(401).json({ error: 'Invalid email' });
         }
         const user = rows[0];
         const passwordMatch = yield bcrypt_1.default.compare(password, user.password);
-        if (!passwordMatch) {
-            return res.status(401).json({ error: 'Invalid email or password' });
+        if (passwordMatch) {
+            jsonwebtoken_1.default.sign({ email: user.email, id: user.id, firstName: user.firstName, lastName: user.lastName }, secret, { expiresIn: '1h' }, (err, token) => {
+                if (err)
+                    throw err;
+                res.cookie("token", token).json(user);
+            });
         }
-        const token = jsonwebtoken_1.default.sign({ email: user.email, id: user.id }, "secret_key", {
-            expiresIn: '1h',
-        });
-        return res.status(200).json({ token, firstName: user.firstName, lastName: user.lastName });
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Invalid password' });
+        }
     }
     catch (error) {
         console.error('Error occurred during login:', error);
@@ -63,6 +62,10 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         if (!password) {
             return res.status(400).json({ error: 'Password required!' });
+        }
+        const existingUser = yield userModel.getUserByEmail(email);
+        if (existingUser) {
+            return res.status(409).json({ error: 'User already exists!' });
         }
         const hashedPassword = yield bcrypt_1.default.hash(password, 10);
         const userData = {
@@ -86,10 +89,17 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     res.send(id);
 });
 exports.deleteUser = deleteUser;
-const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const userData = req.body;
-    yield userModel.updateUser(parseInt(id), userData);
-    res.status(200).send("Successfully updated user");
+const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { token } = req.cookies;
+    if (token) {
+        jsonwebtoken_1.default.verify(token, secret, {}, (err, user) => {
+            if (err)
+                return res.status(401).json({ error: 'Invalid token' });
+            res.json(user);
+        });
+    }
+    else {
+        res.json(null);
+    }
 });
-exports.updateUser = updateUser;
+exports.getProfile = getProfile;

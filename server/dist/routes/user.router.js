@@ -9,5 +9,5 @@ userRouter.get('/user', user_controller_1.getUsers);
 userRouter.get('/user/:id', user_controller_1.getUser);
 userRouter.post('/user', user_controller_1.createUser);
 userRouter.post('/user/login', user_controller_1.loginUser);
-userRouter.put('/user/:id', user_controller_1.updateUser);
 userRouter.delete('/user/:id', user_controller_1.deleteUser);
+userRouter.get('/user/:id/profile', user_controller_1.getProfile);
