@@ -10,11 +10,10 @@ import SignUp from "@/pages/SignUp.tsx";
 import Login from "@/pages/Login.tsx";
 import UserProfile from "@/pages/UserProfile.tsx";
 import NotFound from "@/pages/NotFound.tsx";
-import {UserContextProvider} from "@/context/userContext.tsx";
+import { UserContextProvider } from "@/context/userContext.tsx";
 
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
-    // const [firstName, setFirstName] = useState("");
 
     // Check scroll position
     useEffect(() => {
@@ -27,10 +26,6 @@ function App() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
-    // const updateFirstName = (name: string) => {
-    //     setFirstName(name);
-    // };
 
     return <div className="app bg-white">
         <UserContextProvider>

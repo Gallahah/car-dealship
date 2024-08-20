@@ -1,7 +1,7 @@
-import {Request, Response} from 'express';
-import {DB} from "../core/DB";
-import {CarModel} from "../models/car.model";
-import {ParsedQs} from "qs";
+import { Request, Response } from 'express';
+import { DB } from "../core/DB";
+import { CarModel } from "../models/car.model";
+import { ParsedQs } from "qs";
 import AWS from 'aws-sdk';
 
 const db = new DB();
@@ -115,7 +115,8 @@ const createCar = async (req: Request, res: Response) => {
         console.error("Error creating car:", error);
         res.status(500).send("Error creating car");
     }
-}
+};
+
 
 const updateCar = async (req: Request, res: Response) => {
     const { id } = req.params;

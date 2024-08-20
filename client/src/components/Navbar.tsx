@@ -42,7 +42,11 @@ const Navbar = ({ isTopOfPage }: Props) => {
                                 {/* LINKS */}
                                 <CustomLink to="/home"><h3 className="hover:text-dark-100">Home</h3></CustomLink>
                                 <CustomLink to="/buy"><h3 className="hover:text-dark-100">Cars For Sale</h3></CustomLink>
-                                <CustomLink to="/sell"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
+                                {!!user ? (
+                                    <CustomLink to="/sell"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
+                                ) : (
+                                    <CustomLink to="/signup"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
+                                )}
                             </div>
                             {!user ? (
                                 <div
@@ -120,11 +124,20 @@ const Navbar = ({ isTopOfPage }: Props) => {
                                 Buy
                             </button>
                         </CustomLink>
-                        <CustomLink to="/sell">
-                            <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
-                                Sell
-                            </button>
-                        </CustomLink>
+                        {!!user ? (
+                            <CustomLink to="/sell">
+                                <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                                    Sell
+                                </button>
+                            </CustomLink>
+                        ) : (
+                            <CustomLink to="/signup">
+                                <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
+                                    Sell
+                                </button>
+                            </CustomLink>
+                        )}
+
                         {!user && (
                             <div className="mt-2 space-y-6">
                                 <CustomLink to="/login">

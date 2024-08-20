@@ -18,6 +18,7 @@ const Buy = () => {
     const [cars, setCars] = useState<TCar[]>([]);
     const location = useLocation();
 
+    // Fix slow load time
     useEffect(() => {
         const loadCars = async () => {
             const params = new URLSearchParams(location.search);

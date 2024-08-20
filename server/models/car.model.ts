@@ -20,8 +20,8 @@ export class CarModel {
     }
 
     async createCar(carData: any) {
-        await this.conn.query("INSERT INTO cars (type, make, model, year, price, image_url) VALUES (?, ?, ?, ?, ?, ?)",
-            [carData.type, carData.make, carData.model, carData.year, carData.price, carData.imageUrl]);
+        await this.conn.query("INSERT INTO cars (type, make, model, year, price, image_url, owner_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            [carData.type, carData.make, carData.model, carData.year, carData.price, carData.imageUrl, carData.ownerId]);
     }
 
     async updateCarPrice(id: number, price: number): Promise<boolean> {

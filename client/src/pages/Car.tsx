@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import CustomLink from "@/components/CustomLink.tsx";
 import { SocialIcon } from "react-social-icons";
 import { fetchCar, updateCarPrice, deleteCar } from "@/api.ts";
+import { UserContext } from "@/context/userContext.tsx";
 
 export type TCar = {
     id: number;
@@ -12,12 +13,14 @@ export type TCar = {
     year: number;
     price: number;
     image_url: string;
+    owner_id: number;
 };
 
 const Car = () => {
     const { id } = useParams<{ id: string }>();
     const [car, setCar] = useState<TCar | null>(null);
     const [price, setPrice] = useState<number>(0);
+    const { user } = useContext(UserContext);
 
     // Fetching car data from the backend
     useEffect(() => {
@@ -52,7 +55,7 @@ const Car = () => {
         }
     };
 
-    if (!car) return <div>Loading...</div>;
+    if (!car) return <div className="font-semibold text-3xl mt-8 text-center">Loading...</div>;
 
     // Car component UI
     return (
@@ -77,8 +80,9 @@ const Car = () => {
                             className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full"
                             onClick={handleUpdateCarPrice}
                         >
-                            Increase Price
+                            Bid
                         </button>
+                        {/* Check if a user is logged in and that logged user id !== owner id */}
                         <CustomLink to="/home">
                             <button
                                 className="max-md:w-full bg-light-100 hover:bg-light-200 text-white font-bold py-2 px-4 rounded"

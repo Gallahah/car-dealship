@@ -15,6 +15,12 @@ export const fetchCars = async (params: Record<string, string> = {}) => {
     return await response.json();
 };
 
+// Fetch all cars from DB
+export const getAllCars = async () => {
+    const response = await fetch(`${CAR_ENDPOINT}`);
+    return await response.json();
+}
+
 // Car.tsx fetch only the specified by id row in the table
 export const fetchCar = async (id: number) => {
     const response = await fetch(`${CAR_ENDPOINT}/${id}`);
@@ -42,12 +48,13 @@ export const deleteCar = async (id: number) => {
 
 // Sell.tsx add a new row to the cars table
 export const createCar = async (carData: {
-    type: string;
-    make: string;
-    model: string;
+    image: File | null;
     year: number;
     price: number;
-    image?: File | null;
+    model: string;
+    type: string;
+    ownerId: number;
+    make: string
 }) => {
     const formData = new FormData();
     formData.append('make', carData.make);
@@ -55,6 +62,7 @@ export const createCar = async (carData: {
     formData.append('model', carData.model);
     formData.append('year', carData.year.toString());
     formData.append('price', carData.price.toString());
+    formData.append('ownerId', carData.ownerId.toString());
     if (carData.image) {
         formData.append('image', carData.image);
     }
