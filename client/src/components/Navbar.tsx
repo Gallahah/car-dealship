@@ -19,8 +19,9 @@ const Navbar = ({ isTopOfPage }: Props) => {
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     const navbarBackground = isTopOfPage ? "" : "drop-shadow shadow";
 
+    // TODO: Clear token from cookies
     const handleLogout = () => {
-        setUser(null)
+        setUser(null);
     };
 
 

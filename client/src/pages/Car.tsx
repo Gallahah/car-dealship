@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useContext, useEffect, useState} from "react";
 import CustomLink from "@/components/CustomLink.tsx";
 import { SocialIcon } from "react-social-icons";
@@ -22,6 +22,8 @@ const Car = () => {
     const [price, setPrice] = useState<number>(0);
     const { user } = useContext(UserContext);
 
+    const navigate = useNavigate();
+
     // Fetching car data from the backend
     useEffect(() => {
         (async () => {
@@ -38,6 +40,7 @@ const Car = () => {
         if (id) {
             await deleteCar(parseInt(id));
             setCar(null);
+            navigate("/home");
         }
     };
 
@@ -76,21 +79,51 @@ const Car = () => {
                     <p className="text-lg mb-4">Type: {car.type}</p>
                     <p className="text-lg mb-4">Price: ${car.price.toFixed(2)}</p>
                     <div className="flex max-md:flex-col space-y-2 justify-between">
-                        <button
-                            className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full"
-                            onClick={handleUpdateCarPrice}
-                        >
-                            Bid
-                        </button>
-                        {/* Check if a user is logged in and that logged user id !== owner id */}
-                        <CustomLink to="/home">
-                            <button
-                                className="max-md:w-full bg-light-100 hover:bg-light-200 text-white font-bold py-2 px-4 rounded"
-                                onClick={handleDeleteCar}
-                            >
-                                Purchase
-                            </button>
-                        </CustomLink>
+                        {/* TODO: fix alignment */}
+                        {user ? (
+                            user.id !== car.owner_id ? (
+                                <button
+                                    className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full"
+                                    onClick={handleUpdateCarPrice}
+                                >
+                                    Bid
+                                </button>
+                            ) : (
+                                <CustomLink to="/edit">
+                                    <span className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full">
+                                        Edit
+                                    </span>
+                                </CustomLink>
+                            )
+                        ) : (
+                            <CustomLink to="/signup">
+                                <span className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full">
+                                    Bid
+                                </span>
+                            </CustomLink>
+                        )}
+                        {/* Non-owner user logged in view */}
+                        {user && user.id !== car.owner_id ? (
+                            <CustomLink to="/home">
+                                <button
+                                    className="max-md:w-full bg-light-100 hover:bg-light-200 text-white font-bold py-2 px-4 rounded"
+                                    onClick={handleDeleteCar}
+                                >
+                                    Purchase
+                                </button>
+                            </CustomLink>
+                        ) : null}
+                        {/* Owner logged in view */}
+                        {user && user.id === car.owner_id ? (
+                            <CustomLink to="/home">
+                                <button
+                                    className="max-md:w-full bg-light-100 hover:bg-light-200 text-white font-bold py-2 px-4 rounded"
+                                    onClick={handleDeleteCar}
+                                >
+                                    Remove listing
+                                </button>
+                            </CustomLink>
+                        ) : null}
                     </div>
                 </div>
             </div>

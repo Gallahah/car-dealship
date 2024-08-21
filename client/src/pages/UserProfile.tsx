@@ -32,7 +32,7 @@ const UserProfile = () => {
                 {!!user && <h2 className="text-4xl font-semibold">Welcome, {user.firstName}</h2>}
                 <h1 className="text-2xl">Profile</h1>
             </div>
-            <div className="w-1/2 mx-auto mt-6 p-4 border-2 border-light-100 space-y-4">
+            <div className="md:w-1/2 max-md:w-11/12 mx-auto mt-6 p-4 md:border-2 rounded-md border-light-100 space-y-4">
                 <h3><span className="font-semibold">Name:</span> {user?.firstName} {user?.lastName}</h3>
                 <h3><span className="font-semibold">Email:</span> {user?.email}</h3>
                 <div className="text-center font-semibold text-lg">
