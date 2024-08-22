@@ -11,7 +11,7 @@ const app: Application = express();
 const port = process.env.PORT || 3001;
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://namcar.site' : 'http://localhost:5173',
+    origin: 'https://namcar.site' || 'http://localhost:5173',
     credentials: true,
 }));
 
