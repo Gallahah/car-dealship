@@ -31,7 +31,7 @@ class CarModel {
     }
     createCar(carData) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.conn.query("INSERT INTO cars (type, make, model, year, price, image_url) VALUES (?, ?, ?, ?, ?, ?)", [carData.type, carData.make, carData.model, carData.year, carData.price, carData.imageUrl]);
+            yield this.conn.query("INSERT INTO cars (type, make, model, year, price, image_url, owner_id) VALUES (?, ?, ?, ?, ?, ?, ?)", [carData.type, carData.make, carData.model, carData.year, carData.price, carData.imageUrl, carData.ownerId]);
         });
     }
     updateCarPrice(id, price) {
