@@ -36,7 +36,7 @@ dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3001;
 app.use((0, cors_1.default)({
-    origin: process.env.NODE_ENV === 'production' ? 'https://namcar.site' : 'http://localhost:5173',
+    origin: 'https://namcar.site' || 'http://localhost:5173',
     credentials: true,
 }));
 app.use((0, express_1.json)());
