@@ -9,6 +9,8 @@ const Sell = () => {
   const [model, setModel] = useState("");
   const [year, setYear] = useState<string>("");
   const [price, setPrice] = useState<string>("");
+  const [kilometres, setKilometres] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [image, setImage] = useState<File | null>(null);
 
   const navigate = useNavigate();
@@ -24,14 +26,17 @@ const Sell = () => {
 
     const yearNumber = Number(year);
     const priceNumber = Number(price);
+    const kilometresNumber = Number(kilometres);
 
     if (
       isNaN(yearNumber) ||
       isNaN(priceNumber) ||
+      isNaN(kilometresNumber) ||
       yearNumber <= 0 ||
-      priceNumber <= 0
+      priceNumber <= 0 ||
+      kilometresNumber <= 0
     ) {
-      alert("Please enter valid numbers for Year and Price.");
+      alert("Please enter valid Year, Price and Kilometres.");
       return;
     }
 
@@ -43,6 +48,8 @@ const Sell = () => {
       price: priceNumber,
       image,
       ownerId: user.id,
+      kilometres: kilometresNumber,
+      description,
     });
 
     setType("Sedan");
@@ -50,6 +57,8 @@ const Sell = () => {
     setModel("");
     setYear("");
     setPrice("");
+    setKilometres("");
+    setDescription("");
     setImage(null);
 
     navigate("/home");
@@ -214,6 +223,41 @@ const Sell = () => {
               pattern="\d{4}"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setYear(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="car-year"
+              className="block mb-2 font-bold text-gray-700"
+            >
+              Kilometres
+            </label>
+            <input
+              required
+              id="car-kilometres"
+              className="block w-full p-3 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
+              value={kilometres}
+              placeholder="Kilometres"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setKilometres(e.target.value);
+              }}
+            />
+          </div>
+          <div className="mb-6">
+            <label
+              htmlFor="car-description"
+              className="block mb-2 font-bold text-gray-700"
+            >
+              Additional information
+            </label>
+            <input type="textarea"
+              id="car-description"
+              className="block w-full p-3 pb-24 rounded-lg text-md font-medium text-gray-800 border placeholder-gray-400 border-gray-200 bg-gray-100 focus:border-blue-500 focus:ring-blue-500"
+              value={description}
+              placeholder="Additional information..."
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setDescription(e.target.value);
               }}
             />
           </div>

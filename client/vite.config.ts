@@ -9,6 +9,7 @@ export default defineConfig({
         include: ['./src/**/*.ts'],
       }
   )],
+    base: '/',
   resolve: {
     alias: [{
       find: '@', replacement: path.resolve(__dirname,'src'),

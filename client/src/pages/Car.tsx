@@ -14,6 +14,8 @@ export type TCar = {
     price: number;
     image_url: string;
     owner_id: number;
+    kilometres: number;
+    description: string;
 };
 
 const Car = () => {
@@ -78,7 +80,11 @@ const Car = () => {
                     <h2 className="text-2xl font-bold mb-4">{car.make} {car.model} ({car.year})</h2>
                     <p className="text-lg mb-4">Type: {car.type}</p>
                     <p className="text-lg mb-4">Price: ${car.price.toFixed(2)}</p>
-                    <div className="flex max-md:flex-col space-y-2 justify-between">
+                    {car.kilometres !== null ? (
+                            <p className="text-lg mb-4">Kilometres: {car.kilometres}</p>
+                        ) : null
+                    }
+                    <div className="flex max-md:flex-col max-md:space-y-4 justify-between">
                         {/* TODO: fix alignment */}
                         {user ? (
                             user.id !== car.owner_id ? (
@@ -128,13 +134,27 @@ const Car = () => {
                 </div>
             </div>
 
-            <div className="container mx-auto px-12 py-8 mb-8">
-                <h3 className="text-xl font-bold mb-4">Additional Information</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Sed ut risus in augue luctus venenatis. Sed tincidunt, magna a ultricies accumsan, mi
-                    enim tempor nulla, eget ullamcorper felis tellus at mi. Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit.</p>
-            </div>
+                <div className="container mx-auto px-12 py-8 mb-8">
+                    <h3 className="text-xl font-bold mb-4">
+                        Additional Information
+                    </h3>
+                    {car.description ? (
+                    <p>
+                        {car.description}
+                    </p>
+                    ) : (
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Culpa ipsum placerat consetetur ullamcorper.
+                            Eirmod excepteur assum, elit vel nonummy wisi cupiditat amet voluptua zzril duis nisl sit
+                            ullamco veniam dolor elit dignissim erat laoreet eum exerci sed dolor erat laoreet kasd.
+                            Enim no nam ex congue sed imperdiet feugait euismod consectetuer assum laborum et
+                            adipiscing mollit velit, laborum aliquip stet feugait accusam voluptate adipisici
+                            qui illum laoreet aliquyam.
+                        </div>
+                    )}
+                </div>
+
         </section>
     );
 };

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCar = exports.updateCar = exports.createCar = exports.getCars = exports.getCar = void 0;
+exports.deleteCar = exports.updateCarPrice = exports.createCar = exports.getCars = exports.getCar = void 0;
 const DB_1 = require("../core/DB");
 const car_model_1 = require("../models/car.model");
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
@@ -117,13 +117,17 @@ const createCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.createCar = createCar;
-const updateCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateCarPrice = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { price } = req.body;
     yield carModel.updateCarPrice(parseInt(id), parseInt(price));
     res.send({ id, price });
 });
-exports.updateCar = updateCar;
+exports.updateCarPrice = updateCarPrice;
+// const editCar = async (req: Request, res: Response) => {
+//     const { id } = req.params;
+//     const data = req.body;
+// }
 const deleteCar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     yield carModel.deleteCar(parseInt(id));

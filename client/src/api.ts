@@ -7,6 +7,35 @@ const createEndpoint = (path: string) => `${BASE_URL}${path}`;
 const CAR_ENDPOINT = createEndpoint('/car');
 const USER_ENDPOINT = createEndpoint('/user');
 
+const createCarFormData = (carData: {
+    image: File | null;
+    year: number;
+    price: number;
+    model: string;
+    type: string;
+    ownerId: number;
+    make: string;
+    kilometres: number;
+    description: string;
+}) => {
+    const formData = new FormData();
+    formData.append('make', carData.make);
+    formData.append('type', carData.type);
+    formData.append('model', carData.model);
+    formData.append('year', carData.year.toString());
+    formData.append('price', carData.price.toString());
+    formData.append('ownerId', carData.ownerId.toString());
+    formData.append('kilometres', carData.kilometres.toString());
+    formData.append('description', carData.description);
+
+    if (carData.image) {
+        formData.append('image', carData.image);
+    }
+
+    return formData;
+};
+
+
 // Buy.tsx show cars table & Home.tsx filter tabs
 export const fetchCars = async (params: Record<string, string> = {}) => {
     const queryString = new URLSearchParams(params).toString();
@@ -28,8 +57,9 @@ export const fetchCar = async (id: number) => {
     return await response.json();
 };
 
+// Car.tsx update car price in table
 export const updateCarPrice = async (id: number, price: number) => {
-    const response = await fetch(`${CAR_ENDPOINT}/${id}`, {
+    const response = await fetch(`${CAR_ENDPOINT}/${id}/price`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ price }),
@@ -38,6 +68,7 @@ export const updateCarPrice = async (id: number, price: number) => {
     return await response.json();
 };
 
+// Delete row from table
 export const deleteCar = async (id: number) => {
     const response = await fetch(`${CAR_ENDPOINT}/${id}`, {
         method: "DELETE",
@@ -54,15 +85,12 @@ export const createCar = async (carData: {
     model: string;
     type: string;
     ownerId: number;
-    make: string
+    make: string;
+    kilometres: number;
+    description: string;
 }) => {
-    const formData = new FormData();
-    formData.append('make', carData.make);
-    formData.append('type', carData.type);
-    formData.append('model', carData.model);
-    formData.append('year', carData.year.toString());
-    formData.append('price', carData.price.toString());
-    formData.append('ownerId', carData.ownerId.toString());
+    const formData = createCarFormData(carData);
+
     if (carData.image) {
         formData.append('image', carData.image);
     }
