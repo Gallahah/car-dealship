@@ -40,9 +40,14 @@ class CarModel {
             return true;
         });
     }
-    // async editCar(id: number, carData: any) {
-    //     await this.conn.query("UPDATE cars SET (price)", [id]);
-    // }
+    editCar(id, carData) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.conn.execute("UPDATE cars SET type = ?, make = ?, model = ?, year = ?, price = ?, image_url = ?, kilometres = ?, description = ? WHERE id = ?", [carData.type, carData.make, carData.model,
+                carData.year, carData.price, carData.imageUrl,
+                carData.kilometres, carData.description, id]);
+            return true;
+        });
+    }
     deleteCar(id) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.conn.query("DELETE FROM cars WHERE id = ?", [id]);

@@ -103,6 +103,39 @@ export const createCar = async (carData: {
     return await response.json();
 };
 
+// Edit.tsx update car data
+export const editCar = async (id: number, carData: {
+    image: File | null;
+    year: number;
+    price: number;
+    model: string;
+    type: string;
+    make: string;
+    kilometres: number;
+    description: string;
+})=> {
+    const formData = new FormData();
+
+    formData.append('make', carData.make);
+    formData.append('type', carData.type);
+    formData.append('model', carData.model);
+    formData.append('description', carData.description);
+    formData.append('year', carData.year.toString());
+    formData.append('price', carData.price.toString());
+    formData.append('kilometres', carData.kilometres.toString());
+
+    if (carData.image) {
+        formData.append('image', carData.image);
+    }
+
+    const response = await fetch(`${CAR_ENDPOINT}/${id}/edit`, {
+        method: "PUT",
+        body: formData,
+    });
+
+    return await response.json();
+}
+
 // SignUp.tsx add a new user to the database
 export const createUser = async (userData: {
     firstName: string;

@@ -1,5 +1,5 @@
-import {useNavigate, useParams} from 'react-router-dom';
-import {useContext, useEffect, useState} from "react";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
 import CustomLink from "@/components/CustomLink.tsx";
 import { SocialIcon } from "react-social-icons";
 import { fetchCar, updateCarPrice, deleteCar } from "@/api.ts";
@@ -95,7 +95,7 @@ const Car = () => {
                                     Bid
                                 </button>
                             ) : (
-                                <CustomLink to="/edit">
+                                <CustomLink to={`/car/${id}/edit`}>
                                     <span className="bg-dark-100 hover:bg-dark-200 text-white font-bold py-2 px-4 rounded max-md:w-full">
                                         Edit
                                     </span>
@@ -108,6 +108,7 @@ const Car = () => {
                                 </span>
                             </CustomLink>
                         )}
+                        {/* TODO:Optimize */}
                         {/* Non-owner user logged in view */}
                         {user && user.id !== car.owner_id ? (
                             <CustomLink to="/home">

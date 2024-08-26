@@ -14,5 +14,6 @@ exports.carRouter = carRouter;
 carRouter.get('/car', car_controller_1.getCars);
 carRouter.get('/car/:id', car_controller_1.getCar);
 carRouter.post('/car', upload.single('image'), car_controller_1.createCar);
+carRouter.put('/car/:id/edit', car_controller_1.editCar);
 carRouter.put('/car/:id', car_controller_1.updateCarPrice);
 carRouter.delete('/car/:id', car_controller_1.deleteCar);

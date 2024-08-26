@@ -11,6 +11,7 @@ import Login from "@/pages/Login.tsx";
 import UserProfile from "@/pages/UserProfile.tsx";
 import NotFound from "@/pages/NotFound.tsx";
 import { UserContextProvider } from "@/context/userContext.tsx";
+import Edit from "@/pages/Edit.tsx";
 
 function App() {
     const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
@@ -39,7 +40,8 @@ function App() {
                     <Route path="/car/:id" element={<Car />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />
-                    <Route path="/profile" element={<UserProfile />}/>
+                    <Route path="/profile" element={<UserProfile />} />
+                    <Route path="/car/:id/edit" element={<Edit />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

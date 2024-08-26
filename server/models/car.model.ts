@@ -29,9 +29,13 @@ export class CarModel {
         return true;
     }
 
-    // async editCar(id: number, carData: any) {
-    //     await this.conn.query("UPDATE cars SET (price)", [id]);
-    // }
+    async editCar(id: number, carData: any): Promise<boolean> {
+        await this.conn.execute("UPDATE cars SET type = ?, make = ?, model = ?, year = ?, price = ?, image_url = ?, kilometres = ?, description = ? WHERE id = ?",
+            [carData.type, carData.make, carData.model,
+                carData.year, carData.price, carData.imageUrl,
+                carData.kilometres, carData.description, id]);
+        return true;
+    }
 
     async deleteCar(id: number) {
         await this.conn.query("DELETE FROM cars WHERE id = ?", [id]);

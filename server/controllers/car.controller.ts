@@ -125,10 +125,12 @@ const updateCarPrice = async (req: Request, res: Response) => {
     res.send({ id, price });
 }
 
-// const editCar = async (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     const data = req.body;
-// }
+const editCar = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const data = req.body;
+    await carModel.editCar(parseInt(id), data);
+    res.send({ id, data });
+}
 
 const deleteCar = async (req: Request, res: Response) => {
     const { id } = req.params;
@@ -141,5 +143,6 @@ export {
     getCars,
     createCar,
     updateCarPrice,
+    editCar,
     deleteCar,
 };
