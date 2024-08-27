@@ -6,30 +6,34 @@ import { UserContext } from "@/context/userContext.tsx";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
+import { useLocation } from 'react-router-dom';
 
 interface Props {
-    isTopOfPage: boolean; // check if the scroll position is at the top of the page
+    isTopOfPage: boolean; // Check if the scroll position is at the top of the page
 }
 
 const Navbar = ({ isTopOfPage }: Props) => {
     const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
-    const { user, setUser} = useContext(UserContext);
 
     const flexBetween = "flex items-center justify-between";
     const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
     const navbarBackground = isTopOfPage ? "" : "drop-shadow shadow";
 
-    // TODO: Clear token from cookies
+    const { user, setUser} = useContext(UserContext);
+
+    const location = useLocation();
+
+    const isActive = (path: string): boolean => location.pathname === path;
+
     const handleLogout = () => {
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         setUser(null);
     };
 
-
     return <nav>
-        <div className={`${flexBetween} ${navbarBackground} bg-light-20 fixed top-0 z-30 w-full py-6`}>
-            <div className={`${flexBetween} mx-auto w-5/6`}>
-                <div className={`${flexBetween} gap-16 w-full`}>
+        <div className={`${flexBetween} ${navbarBackground} bg-light-20 fixed top-0 z-30 w-full py-4`}>
+            <div className={`${flexBetween} w-full px-12`}>
+                <div className={`${flexBetween} w-full`}>
                     {/* Left Side */}
                     <CustomLink to={"/"}>
                         <img alt="logo" src={Logo} className="transition duration-300 hover:opacity-60 w-[40%]" />
@@ -38,16 +42,39 @@ const Navbar = ({ isTopOfPage }: Props) => {
                     {/* Right Side */}
                     {/* Check for the resolution to determine which menu to display */}
                     {isAboveMediumScreens ? (
-                        <div className={`${flexBetween} text-black w-full`}>
+                        <div className={`${flexBetween} -ml-20 text-black w-full`}>
                             <div
-                                className={`${flexBetween} gap-8 text-md font-semibold mx-auto text-black`}>
+                                className={`${flexBetween} gap-8 text-md font-semibold text-black`}>
                                 {/* LINKS */}
-                                <CustomLink to="/home"><h3 className="hover:text-dark-100">Home</h3></CustomLink>
-                                <CustomLink to="/buy"><h3 className="hover:text-dark-100">Cars For Sale</h3></CustomLink>
+                                <CustomLink to="/home">
+                                    <h3
+                                        className={`hover:text-dark-100 
+                                        ${isActive('/home') ? 'text-dark-100' : ''}`}>
+                                        Home
+                                    </h3>
+                                </CustomLink>
+                                <CustomLink to="/buy">
+                                    <h3
+                                        className={`hover:text-dark-100 
+                                        ${isActive('/buy') ? 'text-dark-100' : ''}`}>
+                                        Cars For Sale
+                                    </h3>
+                                </CustomLink>
                                 {!!user ? (
-                                    <CustomLink to="/sell"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
+                                    <CustomLink to="/sell">
+                                        <h3
+                                            className={`hover:text-dark-100 
+                                        ${isActive('/sell') ? 'text-dark-100' : ''}`}>
+                                            Sell Your Car
+                                        </h3>
+                                    </CustomLink>
                                 ) : (
-                                    <CustomLink to="/signup"><h3 className="hover:text-dark-100">Sell Your Car</h3></CustomLink>
+                                    <CustomLink to="/signup">
+                                        <h3
+                                            className="hover:text-dark-100">
+                                            Sell Your Car
+                                        </h3>
+                                    </CustomLink>
                                 )}
                             </div>
                             {!user ? (
@@ -55,18 +82,24 @@ const Navbar = ({ isTopOfPage }: Props) => {
                                     className={`${flexBetween} gap-4 font-semibold`}
                                 >
                                     <CustomLink to="/login">
-                                        <span className="hover:text-dark-200">Sign In</span>
+                                        <span className={`border-2 border-dark-200 rounded-lg text-dark-200 py-2 px-12 
+                                        hover:text-light-20 hover:bg-dark-200`}>
+                                            Sign In
+                                        </span>
                                     </CustomLink>
                                     <CustomLink to="/signup">
                                         <span
-                                            className={`rounded-full hover:border-dark-200 hover:text-dark-200 border-2 px-4 py-2`}>
+                                            className={`border-2 border-dark-200 rounded-lg py-2 px-12 text-light-20 bg-dark-200
+                                            hover:text-dark-200 hover:bg-light-20`}>
                                             Sign Up
                                         </span>
                                     </CustomLink>
                                 </div>) : (
                                 <div className={`${flexBetween} gap-4`}>
                                     <CustomLink to="/profile">
-                                        <span className="hover:text-dark-200 font-semibold">
+                                        <span
+                                            className={`hover:text-dark-200 font-semibold 
+                                            ${isActive('/profile') ? 'text-dark-200' : ''}`}>
                                             Welcome, {user.firstName}
                                         </span>
                                     </CustomLink>

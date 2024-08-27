@@ -1,9 +1,9 @@
-import Logo from "@/assets/logo_dark.png";
+import Logo from "@/assets/logo.png";
 import CustomLink from "@/components/CustomLink";
 
 const Footer = () => {
     return (
-        <footer className="py-16 bg-gray-200 text-black">
+        <footer className="py-16 bg-gray-900 text-light-20">
             <div className="justify-content mx-auto w-5/6 gap-16 md:flex">
                 <div className="mt-16 basis-1/2 md:mt-0">
                     <CustomLink to="/"><img alt="logo" src={Logo} className="w-1/5"/></CustomLink>

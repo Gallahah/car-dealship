@@ -1,7 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { TCar } from "@/pages/Car.tsx";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { fetchCar, editCar } from "@/api.ts";
+import { UserContext } from "@/context/userContext.tsx";
 
 const Edit = () => {
     const { id } = useParams<{ id: string }>();
@@ -16,6 +17,13 @@ const Edit = () => {
     const [image, setImage] = useState<File | null>(null);
 
     const navigate = useNavigate();
+    const { user } = useContext(UserContext);
+
+    useEffect(() => {
+        if (!user || !user.id) {
+            navigate("/signup");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchSelectedCar = async () => {
@@ -71,6 +79,7 @@ const Edit = () => {
     }
 
     return (
+        !!user ? (
         <section
             id="edit"
             className="gap-16 py-10 md:h-full md:pb-20 mt-20 max-md:bg-gray-200 text-dark-100"
@@ -324,7 +333,7 @@ const Edit = () => {
                     <p>Loading...</p>
                 )}
             </div>
-        </section>
+        </section> ) : null
     );
 };
 

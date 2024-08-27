@@ -18,6 +18,8 @@ const TabsContainer: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
+    const styling = "border-2 p-2 rounded md:px-8 hover:scale-105 hover:border-dark-100 transition duration-200"
+
     useEffect(() => {
         const getCars = async () => {
             try {
@@ -60,7 +62,7 @@ const TabsContainer: React.FC = () => {
                     {priceRanges.map(range => (
                         <button
                             key={range.label}
-                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
+                            className={styling}
                             onClick={() => navigate(`/buy?min=${range.min}&max=${range.max === Infinity ? '' : range.max}`)}
                         >
                             {range.label}
@@ -76,7 +78,7 @@ const TabsContainer: React.FC = () => {
                     {makes.map(make => (
                         <button
                             key={make}
-                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
+                            className={styling}
                             onClick={() => navigate(`/buy?make=${make}`)}
                         >
                             {make}
@@ -92,7 +94,7 @@ const TabsContainer: React.FC = () => {
                     {types.map(type => (
                         <button
                             key={type}
-                            className="border-2 p-2 rounded-xl hover:scale-105 hover:border-light-100 transition duration-200"
+                            className={styling}
                             onClick={() => navigate(`/buy?type=${type}`)}
                         >
                             {type}

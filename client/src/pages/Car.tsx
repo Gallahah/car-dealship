@@ -108,7 +108,7 @@ const Car = () => {
                                 </span>
                             </CustomLink>
                         )}
-                        {/* TODO:Optimize */}
+                        {/* TODO: Optimize */}
                         {/* Non-owner user logged in view */}
                         {user && user.id !== car.owner_id ? (
                             <CustomLink to="/home">

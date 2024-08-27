@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCar } from "@/api.ts";
 import { UserContext } from "@/context/userContext.tsx";
@@ -15,6 +15,12 @@ const Sell = () => {
 
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!user || !user.id) {
+      navigate("/signup");
+    }
+  }, [user, navigate]);
 
   const handleCreateCar = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,6 +71,7 @@ const Sell = () => {
   };
 
   return (
+      !!user ? (
     <section
       id="sell"
       className="gap-16 py-10 md:h-full md:pb-20 mt-20 max-md:bg-gray-200 text-dark-100"
@@ -305,7 +312,7 @@ const Sell = () => {
           </div>
         </form>
       </div>
-    </section>
+    </section>) : null
   );
 };
 
