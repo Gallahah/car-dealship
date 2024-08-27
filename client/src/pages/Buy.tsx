@@ -16,11 +16,12 @@ type TCar = {
 
 const Buy = () => {
     const [cars, setCars] = useState<TCar[]>([]);
+    const [ loading, setLoading ] = useState<boolean>(true);
     const location = useLocation();
 
-    // Fix slow load time
     useEffect(() => {
         const loadCars = async () => {
+            setLoading(true);
             const params = new URLSearchParams(location.search);
             const min = params.get('min');
             const max = params.get('max');
@@ -36,6 +37,7 @@ const Buy = () => {
 
             const newCars = await fetchCars(query);
             setCars(newCars);
+            setLoading(false);
         };
 
         loadCars();
@@ -55,28 +57,34 @@ const Buy = () => {
                     }}
                     className="cars w-full py-6 px-12 grid md:grid-cols-3 gap-8"
                 >
-                    {cars.map((car: TCar) => (
-                        <div
-                            key={car.id}
-                            className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
-                            <CustomLink
-                                to={`/car/${car.id}`}>
-                                <div className="h-[240px] overflow-hidden relative">
-                                    <img
-                                        src={car.image_url}
-                                        alt={`${car.make} ${car.model}`}
-                                        className="bg-gradient-to-t from-black/60 to-transparent h-full w-full object-cover transform transition-transform duration-300 hover:scale-110"
-                                    />
-                                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent"></div>
-                                </div>
-                                <div className="px-6 py-4">
-                                    <h3 className="font-bold text-lg mb-2 text-black">{car.make} {car.model}</h3>
-                                    <p className="text-gray-600">{car.year} • {car.type}</p>
-                                    <p className="text-gray-800 font-bold text-xl mt-2">${car.price.toFixed(2)}</p>
-                                </div>
-                            </CustomLink>
+                    {loading ? (
+                        <div className="col-span-3 text-center text-black mb-96 mt-12 text-xl font-semibold">
+                            Loading cars, please wait...
                         </div>
-                    ))}
+                    ) : (
+                        cars.map((car: TCar) => (
+                            <div
+                                key={car.id}
+                                className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow duration-300">
+                                <CustomLink
+                                    to={`/car/${car.id}`}>
+                                    <div className="h-[240px] overflow-hidden relative">
+                                        <img
+                                            src={car.image_url}
+                                            alt={`${car.make} ${car.model}`}
+                                            className="bg-gradient-to-t from-black/60 to-transparent h-full w-full object-cover transform transition-transform duration-300 hover:scale-110"
+                                        />
+                                        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    </div>
+                                    <div className="px-6 py-4">
+                                        <h3 className="font-bold text-lg mb-2 text-black">{car.make} {car.model}</h3>
+                                        <p className="text-gray-600">{car.year} • {car.type}</p>
+                                        <p className="text-gray-800 font-bold text-xl mt-2">${car.price.toFixed(2)}</p>
+                                    </div>
+                                </CustomLink>
+                            </div>
+                        ))
+                    )}
                 </motion.div>
             </div>
         </section>

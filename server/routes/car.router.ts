@@ -9,7 +9,7 @@ const carRouter = Router();
 carRouter.get('/car', getCars);
 carRouter.get('/car/:id', getCar);
 carRouter.post('/car', upload.single('image'), createCar);
-carRouter.put('/car/:id/edit', editCar)
+carRouter.put('/car/:id/edit', upload.single('image'), editCar)
 carRouter.put('/car/:id', updateCarPrice);
 carRouter.delete('/car/:id', deleteCar);
 

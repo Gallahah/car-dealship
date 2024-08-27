@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TCar } from "@/pages/Car.tsx";
 import { useEffect, useState } from "react";
 import { fetchCar, editCar } from "@/api.ts";
@@ -15,6 +15,8 @@ const Edit = () => {
     const [price, setPrice] = useState("");
     const [image, setImage] = useState<File | null>(null);
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const fetchSelectedCar = async () => {
             if (id) {
@@ -24,10 +26,10 @@ const Edit = () => {
                 setType(car.type);
                 setMake(car.make);
                 setModel(car.model);
-                setYear(car.year.toString());
-                setKilometres(car.kilometres.toString());
                 setDescription(car.description);
+                setYear(car.year.toString());
                 setPrice(car.price.toString());
+                setKilometres(car.kilometres.toString());
             }
         };
 
@@ -59,11 +61,13 @@ const Edit = () => {
                 make,
                 model,
                 year: yearNumber,
+                price: priceNumber,
                 kilometres: kilometresNumber,
                 description,
-                price: priceNumber,
                 image
-            })
+            });
+
+        navigate(-1);
     }
 
     return (

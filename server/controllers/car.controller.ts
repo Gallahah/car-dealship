@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
-import { DB } from "../core/DB";
-import { CarModel } from "../models/car.model";
-import { ParsedQs } from "qs";
+import {Request, Response} from 'express';
+import {DB} from "../core/DB";
+import {CarModel} from "../models/car.model";
+import {ParsedQs} from "qs";
 import AWS from 'aws-sdk';
 
 const db = new DB();
@@ -128,9 +128,44 @@ const updateCarPrice = async (req: Request, res: Response) => {
 const editCar = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
-    await carModel.editCar(parseInt(id), data);
-    res.send({ id, data });
-}
+
+    try {
+        const existingCarResult = await carModel.getCar(parseInt(id));
+
+        if (!existingCarResult) {
+            return res.status(404).json({ error: 'Car not found' });
+        }
+
+        if (req.file) {
+            if (!process.env.AWS_BUCKET) {
+                return res.status(500).json({ error: 'Bucket name is not defined in environment variables' });
+            }
+
+            try {
+                const params = {
+                    Bucket: process.env.AWS_BUCKET!,
+                    Key: `${Date.now()}_${req.file.originalname}`,
+                    Body: req.file.buffer,
+                    ContentType: req.file.mimetype,
+                };
+
+                const uploadResult = await s3.upload(params).promise();
+                data.imageUrl = uploadResult.Location;
+            } catch (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Failed to upload image' });
+            }
+        } else {
+            data.imageUrl = existingCarResult.image_url;
+        }
+
+        await carModel.editCar(parseInt(id), data);
+        res.send({ id, data });
+    } catch (error) {
+        console.error("Error updating car:", error);
+        res.status(500).json({ error });
+    }
+};
 
 const deleteCar = async (req: Request, res: Response) => {
     const { id } = req.params;
