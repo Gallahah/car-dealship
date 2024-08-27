@@ -34,7 +34,7 @@ const TabsContainer: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div className="text-black text-center text-xl mt-12">Loading...</div>;
     }
 
     if (error) {

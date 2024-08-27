@@ -15,7 +15,7 @@ type TCar = {
 };
 
 const Buy = () => {
-    const [cars, setCars] = useState<TCar[]>([]);
+    const [ cars, setCars ] = useState<TCar[]>([]);
     const [ loading, setLoading ] = useState<boolean>(true);
     const location = useLocation();
 
